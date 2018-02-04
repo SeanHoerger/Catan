@@ -3,7 +3,9 @@ package Catan;
 public class Hand {
 	/**
 	 * Number of resource cards of each type
+	 * Player = integer representing which player the hand belongs to
 	 */
+	
 	private int player;
 	private int wood;
 	private int brick;
