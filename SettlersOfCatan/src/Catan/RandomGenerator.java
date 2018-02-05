@@ -1,4 +1,4 @@
-package Catan;
+package catan;
 import java.awt.event.KeyEvent;
 
 
