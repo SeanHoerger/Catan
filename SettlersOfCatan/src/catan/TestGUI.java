@@ -1,3 +1,5 @@
+package catan;
+
 import javax.swing.*;
 import java.awt.*;
 

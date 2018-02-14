@@ -1,118 +1,222 @@
 package catan;
 
+import java.util.Random;
+/**
+ * This Class stores all the necessary information of a player
+ * Completed:
+ * 			Player Number
+ * 			Hand
+ * 			Dev Cards
+ * TODO:
+ * 			Settlements
+ * 			Cities
+ * 			Roads
+ * @author andro
+ *
+ */
 
-// this class represents a player
-
-public class Player {
+public class Player{
 	/**
 	 * Number of resource cards of each type
+	 * Hand class to store resources
+	 * Initialize a devCard holder to all 0 (0 = no dev card)
 	 */
-	private int wood;
-	private int brick;
-	private int sheep;
-	private int wheat;
-	private int iron;
-	
+	private int playerNum;
+	private Hand hand;
+	private int[] devCards = new int[25];
+
 	/**
 	 * Constructors
 	 */
-	public Player(int newWood, int newBrick, int newSheep, int newWheat, int newIron) {
-		this.wood = newWood;
-		this.brick = newBrick;
-		this.sheep = newSheep;
-		this.wheat = newWheat;
-		this.iron = newIron;
+	public Player(int playerNumber, Hand newHand) {
+		this.playerNum = playerNumber;
+		this.hand = newHand;
+	}
+
+	public Player(int playerNumber) {
+		this.playerNum = playerNumber;
+		this.hand = new Hand(0,0,0,0,0);
 	}
 	
 	public Player() {
-		this.wood = 0;
-		this.brick = 0;
-		this.sheep = 0;
-		this.wheat = 0;
-		this.iron = 0;
+		this.hand = new Hand(0,0,0,0,0);
+		this.playerNum = 0;
 	}
-	
-	
+
 	/**
 	 * To String
 	 */
 	public String toString() {
-		return "(Wood: " + wood + ", Brick: " + brick + ", Sheep: " + sheep 
-				+ ", Wheat: " + wheat + ", Iron: " + iron + ", Total: " + this.getTotal() + " )";
+		String devString = "(";
+		for(int i = 0; i<this.indexOfLastDev(); i++) {
+			devString = devString + devCards[i];
+			if(i < this.indexOfLastDev() - 1) {
+				devString = devString + ",";
+			}
+		}
+		devString = devString + ")";
+		return "(Player:" + playerNum + ", Hand:" + hand.toString() + ", DevCards:" + devString + ")";
 	}
-	
+
 	/**
 	 * Getters
 	 */
 	public int getWood() {
-		return wood;
+		return hand.getWood();
 	}
-	
+
 	public int getBrick() {
-		return brick;
+		return hand.getBrick();
 	}
-	
+
 	public int getSheep() {
-		return sheep;
+		return hand.getSheep();
 	}
-	
+
 	public int getWheat() {
-		return wheat;
+		return hand.getWheat();
 	}
-	
+
 	public int getIron() {
-		return iron;
+		return hand.getOre();
 	}
-	
+
 	public int getTotal() {
-		return wood + brick + sheep + wheat + iron;
+		return hand.getTotal();
 	}
-	
+
 	/**
 	 * Setters
 	 */
-	
+
 	public void setWood(int newWood) {
-		this.wood = newWood;
+		hand.setWood(newWood);
 	}
-	
+
 	public void setBrick(int newBrick) {
-		this.brick = newBrick;
+		hand.setBrick(newBrick);
 	}
-	
+
 	public void setSheep(int newSheep) {
-		this.sheep = newSheep;
+		hand.setSheep(newSheep);
 	}
-	
+
 	public void setWheat(int newWheat) {
-		this.wheat = newWheat;
+		hand.setWheat(newWheat);
 	}
-	
-	public void setIron(int newIron) {
-		this.iron = newIron;
+
+	public void setOre(int newOre) {
+		hand.setOre(newOre);
+	}
+
+	/**
+	 * Basic Functions Give
+	 */
+	public void giveWood(int newWood) {
+		hand.giveWood(newWood);
+	}
+
+	public void giveBrick(int newBrick) {
+		hand.giveBrick(newBrick);
+	}
+
+	public void giveSheep(int newSheep) {
+		hand.giveSheep(newSheep);
+	}
+
+	public void giveWheat(int newWheat) {
+		hand.giveWheat(newWheat);
+	}
+
+	public void giveOre(int newOre) {
+		hand.giveOre(newOre);
 	}
 	
 	/**
-	 * Basic Functions
-	 * Give resources
+	 * Basic functions to manipulate and add/remove dev cards
 	 */
-	public void giveWood(int newWood) {
-		this.wood += newWood;
+	public int[] getDevCards() {
+		return devCards;
 	}
 	
-	public void giveBrick(int newBrick) {
-		this.brick += newBrick;
+	/**
+	 * Returns true if the player has the indicated dev card
+	 * Uses a flag to signal the end of the while loop
+	 * Checks each element to see if it contains the indicated dev card
+	 * If it does, return true, else it iterates through the loop until the devCard list is empty
+	 */
+	public boolean hasDevCard(int devCard) {
+		int flag = 0;
+		int counter = 0;
+		while(flag == 0) {
+			if(devCards[counter] == devCard) {
+				return true;
+			}
+			if(devCards[counter] == 0) {
+				flag++;
+			}
+		}
+		return false;
 	}
 	
-	public void giveSheep(int newSheep) {
-		this.sheep += newSheep;
+	/**
+	 * Gives the player the indicated dev card
+	 * Adds the dev card to the first 0 spot in devCards
+	 * (The first slot not already assigned to a different dev card)
+	 */
+	public void giveDevCard(int devCard) {
+		int flag = 0;
+		int counter = 0;
+		while(flag == 0) {
+			if(devCards[counter] == 0) {
+				devCards[counter] = devCard;
+				flag++;
+			}
+			else {
+				counter++;
+			}
+		}
 	}
 	
-	public void giveWheat(int newWheat) {
-		this.wheat += newWheat;
+	/**
+	 * Returns the index of the last assigned dev card
+	 * Uses a flag to keep track of the loop
+	 * While the last dev card has not been found
+	 * Check if the spot in dev card is empty, if not increment the counter
+	 */
+	public int indexOfLastDev() {
+		int counter = 0;
+		int flag = 0;
+		while(flag == 0) {
+			if(devCards[counter] == 0){
+				flag++;
+			}
+			else{
+				counter++;
+			}
+		}
+		return counter;
 	}
 	
-	public void giveIron(int newIron) {
-		this.iron += newIron;
+	/**
+	 * Removes the indicated dev card from the array
+	 * Uses a flag to indicate the end of the loop
+	 */
+	public void removeDevCard(int devCard) {
+		int counter = 0;
+		int flag = 0;
+		while(flag == 0) {
+			if(devCards[counter] == devCard) {  // Checks to see if this position holds the indicated dev card
+				devCards[counter] = devCards[this.indexOfLastDev()];  	// Switches the position of the current spot and the last dev card in the array
+				devCards[this.indexOfLastDev()] = 0;					// Removes the last dev card in the array (saved this dev card in the previous line)
+				flag++;
+			}
+			else if(devCards[counter] == 0) {  	// If the rest of the array is empty, end the loop
+				flag++;
+			}
+			else {								// else increment the loop
+				counter++;
+			}
+		}
 	}
 }
