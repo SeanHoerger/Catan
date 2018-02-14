@@ -9,11 +9,13 @@ import javax.swing.*;
 
 public class BoardDisplay extends JComponent {
 
+	//private Graphics theScreen;
 	public static final int XDIM = 300;
 	public static final int YDIM = 300;
 	public static final int SCALAR = 24;
 	public static final int XSTART = 10 * SCALAR;
 	public static final int YSTART = SCALAR;
+	
 
 
 	private static final BoardData boardData = new BoardData();
@@ -31,6 +33,7 @@ public class BoardDisplay extends JComponent {
 		Player player2 = new Player(2, starter);
 		TurnTracker turns = new TurnTracker(window, SCALAR, player1, player2);
 		turns.addEndTurnButton();
+		
 	}
 
 	public Dimension getPreferredSize() {
@@ -43,5 +46,15 @@ public class BoardDisplay extends JComponent {
 			boardData.getTileAt(i).drawTile(g);
 		}
 	}
+	
+	//Experimenting with a new way to update the board
+	/*void updateGraphics() {
+		this.clear();
+		this.paintComponent(theScreen);
+	}
+	
+	void clear() {
+		this.theScreen.setColor(Color.GRAY);
+	}*/
 	
 }
