@@ -87,9 +87,7 @@ public class TurnTracker {
 	 */
 	public void addEndTurnButton() {
 		JButton endTurn = new JButton("End Turn");
-		endTurn.setBounds(50 * SCALAR, 25 * SCALAR, 4 * SCALAR, 2 * SCALAR);
-		//endTurn.setSize(4*SCALAR,2*SCALAR);
-		//endTurn.setLocation(50*SCALAR,25*SCALAR);
+		endTurn.setBounds(45 * SCALAR, 25 * SCALAR, 4 * SCALAR, 2 * SCALAR);
 		HandlerClass handler = new HandlerClass();
 		endTurn.addActionListener(handler);
 		window.add(endTurn);
