@@ -40,9 +40,7 @@ public class DevCards {
 		Random rand = new Random();
 		while (cards.size() > 0) {
 			int index = rand.nextInt(cards.size());
-			int counter = 0;
 			holder.add(cards.get(index));
-			counter++;
 			cards.remove(index);
 		}
 		cards.addAll(holder);
