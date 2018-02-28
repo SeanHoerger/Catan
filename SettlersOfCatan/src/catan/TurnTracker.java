@@ -41,7 +41,7 @@ public class TurnTracker {
 		this.player3 = three;
 		this.player4 = four;
 		this.numPlayers = 4;
-		this.addEndTurnButton();
+		//this.addEndTurnButton();
 	}
 	
 	public TurnTracker(JFrame hostWindow, int SCALAR, Player one, Player two, Player three) {
@@ -51,7 +51,7 @@ public class TurnTracker {
 		this.player2 = two;
 		this.player3 = three;
 		this.numPlayers = 3;
-		this.addEndTurnButton();
+		//this.addEndTurnButton();
 	}
 	
 	public TurnTracker(JFrame hostWindow, int SCALAR, Player one, Player two) {
@@ -60,7 +60,7 @@ public class TurnTracker {
 		this.player1 = one;
 		this.player2 = two;
 		this.numPlayers = 2;
-		this.addEndTurnButton();
+		//this.addEndTurnButton();
 	}
 	
 	/**
@@ -87,16 +87,14 @@ public class TurnTracker {
 	 */
 	public void addEndTurnButton() {
 		JButton endTurn = new JButton("End Turn");
-		endTurn.setSize(4*SCALAR,2*SCALAR);
-		endTurn.setLocation(40*SCALAR,25*SCALAR);
+		endTurn.setBounds(50 * SCALAR, 25 * SCALAR, 4 * SCALAR, 2 * SCALAR);
+		//endTurn.setSize(4*SCALAR,2*SCALAR);
+		//endTurn.setLocation(50*SCALAR,25*SCALAR);
 		HandlerClass handler = new HandlerClass();
 		endTurn.addActionListener(handler);
 		window.add(endTurn);
 		endTurn.setVisible(true);
-		//JLabel playerTurnIndicator = new JLabel("Player Turn", JLabel.CENTER);
-		//window.add(playerTurnIndicator);
-		//playerTurnIndicator.setLocation(700, 500);
-		//playerTurnIndicator.setVisible(true);
+
 	}
 	
 	/**
