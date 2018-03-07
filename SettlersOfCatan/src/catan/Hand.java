@@ -37,6 +37,7 @@ public class Hand {
 	/**
 	 * To String
 	 */
+	@Override
 	public String toString() {
 		return "(Wood:" + wood + ", Brick:" + brick + ", Sheep:" + sheep + ", Wheat:" + wheat
 				+ ", Ore:" + ore + ", Total:" + this.getTotal() + ")";

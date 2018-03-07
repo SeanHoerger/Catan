@@ -15,7 +15,7 @@ public class TestGUI extends JComponent{
 	private final int YSTART = SCALAR;
 	
 	public static void main (String[] args){
-		JFrame window = new JFrame("Stags of Catan");
+		JFrame window = new JFrame("TestGui");
 		window.add(new TestGUI());
 		window.pack();
 		window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -25,10 +25,12 @@ public class TestGUI extends JComponent{
 		
 	}
 	
+	@Override
 	public Dimension getPreferredSize() {
 		return new Dimension(XDIM, YDIM);
 	}
 	
+	@Override
 	protected void paintComponent(Graphics g) {
 		int xPos = XSTART;
 		int yPos = YSTART;
