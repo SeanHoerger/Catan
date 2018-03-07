@@ -1,7 +1,5 @@
 package catan;
 
-import javax.*;
-import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -19,7 +17,6 @@ import javax.swing.*;
  */
 public class TurnTracker {
 	private JFrame window;		//Which window the button will show up in
-	private JButton endTurn;
 	private int playerTurn = 1; //Int that ranges from 1 - the number of players and keeps track of the turns
 	private int numPlayers;		//The number of players, starting at 1
 	private Player player1;
@@ -100,9 +97,10 @@ public class TurnTracker {
 	 *
 	 */
 	private class HandlerClass implements ActionListener{
+		@Override
 		public void actionPerformed(ActionEvent event) {
 			cycleTurn();
-			JOptionPane.showMessageDialog(window, String.format("%s", "PlayerTurn: " + playerTurn));
+			//JOptionPane.showMessageDialog(window, String.format("%s", "PlayerTurn: " + playerTurn));
 		}
 	}
 	

@@ -1,6 +1,4 @@
 package catan;
-
-import java.util.Random;
 /**
  * This Class stores all the necessary information of a player
  * Completed:
@@ -46,6 +44,7 @@ public class Player{
 	/**
 	 * To String
 	 */
+	@Override
 	public String toString() {
 		String devString = "(";
 		for(int i = 0; i<this.indexOfLastDev(); i++) {

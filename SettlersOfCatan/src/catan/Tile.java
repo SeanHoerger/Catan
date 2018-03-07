@@ -51,6 +51,7 @@ public class Tile {
 	/**
 	 * toString method
 	 */
+	@Override
 	public String toString() {
 		return "(" + this.getLocation() + " , " + this.getTileType() + " , " + this.getNumber()
 		       + " , " + this.hasRobber() + ")";
