@@ -31,12 +31,10 @@ public class BoardDisplay extends JComponent {
 		window.setLocationRelativeTo(null);
 		//window.setBackground(new Color(114, 162,254));<- save for later
 		window.setVisible(true);
-		window.setLayout(null);
+		window.setLayout(null); //Necessary to be able to set the direct x and y coordinates
 		Hand starter = new Hand(0,0,0,0,0);
 		Player player1 = new Player(1, starter);
 		Player player2 = new Player(2, starter);
-		//JButton reshuffleBoard = new JButton("Reshuffle Board");
-		//JButton startGame = new JButton("Start!");
 		reshuffleBoardButton();
 		while(hasRolled == false) {
 			try { Thread.sleep(200); } catch (InterruptedException e) {};
@@ -108,6 +106,11 @@ public class BoardDisplay extends JComponent {
 		}
 	}
 	
+	/**
+	 * Handles the start game button by setting the hasRolled flag to true
+	 * @author andro
+	 *
+	 */
 	private static class startGameClass implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent event) {
@@ -115,6 +118,11 @@ public class BoardDisplay extends JComponent {
 		}
 	}
 	
+	/**
+	 * Handles the end turn / roll dice button
+	 * @author andro
+	 *
+	 */
 	private static class rollDiceHandler implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent event) {
@@ -137,7 +145,7 @@ public class BoardDisplay extends JComponent {
 	}
 	
 	public static void startGame(JButton rollDice, Player player1, Player player2) {
-		rollDice.setBounds(45 * SCALAR, 25 * SCALAR, 4 * SCALAR, 2 * SCALAR);
+		rollDice.setBounds(45 * SCALAR, 25 * SCALAR, 4 * SCALAR, 2 * SCALAR); //Sets the size and location of the button. (x, y, xdim, ydim)
 		rollDiceHandler rollHandler = new rollDiceHandler();
 		rollDice.addActionListener(rollHandler);
 		turns.addPlayer(player1);
