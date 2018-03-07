@@ -1,5 +1,6 @@
 package catan;
 
+import java.awt.Graphics;
 import java.util.Random;
 /**
  * This Class stores all the necessary information of a player
@@ -218,5 +219,9 @@ public class Player{
 				counter++;
 			}
 		}
+	}
+	
+	public void displayHand(Graphics g) {
+		hand.display(g);
 	}
 }
