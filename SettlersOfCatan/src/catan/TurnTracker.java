@@ -60,6 +60,10 @@ public class TurnTracker {
 		//this.addEndTurnButton();
 	}
 	
+	public TurnTracker() {
+		this.numPlayers = 0;
+	}
+	
 	/**
 	 * Getters for player turn
 	 */
@@ -104,6 +108,22 @@ public class TurnTracker {
 		}
 	}
 	
+	public void addPlayer(Player player) {
+		if(this.numPlayers == 0) {
+			this.player1 = player;
+		}
+		if(this.numPlayers == 1) {
+			this.player2 = player;
+		}
+		if(this.numPlayers == 2) {
+			this.player3 = player;
+		}
+		if(this.numPlayers == 3) {
+			this.player4 = player;
+			this.numPlayers--;
+		}
+		this.numPlayers++;
+	}
 	
 	
 }
