@@ -60,7 +60,7 @@ public class TurnTracker {
 		//this.addEndTurnButton();
 	}
 	
-	public TurnTracker() {
+	public TurnTracker() { //Generic constructor
 		this.numPlayers = 0;
 	}
 	
@@ -108,6 +108,11 @@ public class TurnTracker {
 		}
 	}
 	
+	/**
+	 * Function to allow the addition of players
+	 * Used in the generic constructor form
+	 * @param player
+	 */
 	public void addPlayer(Player player) {
 		if(this.numPlayers == 0) {
 			this.player1 = player;
