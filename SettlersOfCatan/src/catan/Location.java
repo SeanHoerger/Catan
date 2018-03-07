@@ -29,6 +29,7 @@ public class Location {
 	}
 
 	// toString
+	@Override
 	public String toString() {
 		return "Location: (" + this.getX() + ", " + this.getY() + ")";
 	}

@@ -1,7 +1,5 @@
 package catan;
 
-import java.awt.event.KeyEvent;
-
 public class RandomGenerator {
 	/**
 	 * Can take in 1 or 2 inputs and randomly generates a number

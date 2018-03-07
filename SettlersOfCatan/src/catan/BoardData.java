@@ -114,7 +114,7 @@ public class BoardData{
 	}
 	
 	// sets the location of the tiles on the board
-	private void setLocations() {
+	public void setLocations() {
 		int xPos = BoardDisplay.XSTART;
 		int yPos = BoardDisplay.YSTART;
 		int i = 0;
