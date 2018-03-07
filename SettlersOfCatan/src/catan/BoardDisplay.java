@@ -9,8 +9,8 @@ import javax.swing.*;
 public class BoardDisplay extends JComponent {
 
 	public static boolean hasRolled = false; //flag to register when the Start! button has been pressed. Recycled to flag if the dice have been rolled this turn
-	public static final int XDIM = 800;
-	public static final int YDIM = 800;
+	public static final int XDIM = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+	public static final int YDIM = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	public static final int SCALAR = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 55); // <-- magic number: 55
 	public static final int XSTART = 10*SCALAR;
 	public static final int YSTART = SCALAR;
@@ -29,6 +29,7 @@ public class BoardDisplay extends JComponent {
 		window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		window.setExtendedState(Frame.MAXIMIZED_BOTH);
 		window.setLocationRelativeTo(null);
+		//window.setBackground(new Color(114, 162,254));<- save for later
 		window.setVisible(true);
 		window.setLayout(null);
 		Hand starter = new Hand(0,0,0,0,0);
@@ -66,6 +67,11 @@ public class BoardDisplay extends JComponent {
 		for(int i = 0; i < boardData.getTiles().length; i++) {
 			boardData.getTileAt(i).drawTile(g);
 		}
+		
+		//card test
+		//Hand testHand = new Hand(8,0,2,3,12);
+		//Player testPlayer = new Player(1, testHand);
+		//testPlayer.displayHand(g);
 	}
 	
 	/**
