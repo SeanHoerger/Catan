@@ -20,7 +20,7 @@ public class InitialInputTextBox extends JFrame {
 		inputField.setColumns(3 * SCALAR / 2);
 		setTitle("Please enter the number of players:"); //Contains the instructions
 		setVisible(true);
-		setSize(400, 200);
+		setSize(20 * SCALAR, 10 * SCALAR);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocation(17*SCALAR, 12*SCALAR);
 		readInput reader = new readInput();
