@@ -11,12 +11,13 @@ public class InitialInputTextBox extends JFrame {
 	 */
 	JPanel holder = new JPanel();//Holder to contain the text field
 	private static JLabel label = new JLabel();
-	private static JTextField inputField = new JTextField(35);
+	private static JTextField inputField = new JTextField();
 	private static int numPlayers;
 	private static int flag = 0;
 	
 	public InitialInputTextBox(int SCALAR) 
 	{
+		inputField.setColumns(3 * SCALAR / 2);
 		setTitle("Please enter the number of players:"); //Contains the instructions
 		setVisible(true);
 		setSize(400, 200);
@@ -28,7 +29,7 @@ public class InitialInputTextBox extends JFrame {
 		holder.add(label);
 		add(holder);
 		while(flag == 0) { //Uses a flag to determine if the user has input a valid response
-			try { Thread.sleep(200); } catch (InterruptedException e) {};
+			try { Thread.sleep(500); } catch (InterruptedException e) {};
 		}
 		setVisible(false); //Remove the text window and continue the game
 		remove(holder);

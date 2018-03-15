@@ -43,7 +43,7 @@ public class BoardDisplay extends JComponent {
 		while(hasRolled == false) {
 			try { Thread.sleep(200); } catch (InterruptedException e) {};
 		}
-		try { Thread.sleep(200); } catch (InterruptedException e) {};
+		//try { Thread.sleep(500); } catch (InterruptedException e) {};
 		InitialInputTextBox startingText = new InitialInputTextBox(SCALAR); //Creates a text box read the number of players
 		hasRolled = false;
 		rollDice.setText("Roll Dice");
