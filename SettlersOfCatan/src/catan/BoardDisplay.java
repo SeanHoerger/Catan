@@ -1,6 +1,7 @@
 package catan;
 
 import java.awt.*;
+
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -21,6 +22,7 @@ public class BoardDisplay extends JComponent {
 	public static RandomGenerator dice = new RandomGenerator(6,6);
 	public static TurnTracker turns = new TurnTracker();
 
+	
 	private static final BoardData boardData = new BoardData();
 
 	public static void main(String[] args) {
@@ -35,16 +37,20 @@ public class BoardDisplay extends JComponent {
 		Hand starter = new Hand(0,0,0,0,0);
 		Player player1 = new Player(1, starter);
 		Player player2 = new Player(2, starter);
+		Player player3 = new Player(3, starter);
+		Player player4 = new Player(4, starter);
 		reshuffleBoardButton();
 		while(hasRolled == false) {
 			try { Thread.sleep(200); } catch (InterruptedException e) {};
 		}
+		try { Thread.sleep(200); } catch (InterruptedException e) {};
+		InitialInputTextBox startingText = new InitialInputTextBox(SCALAR); //Creates a text box read the number of players
 		hasRolled = false;
 		rollDice.setText("Roll Dice");
 		window.remove(startGame);
 		window.remove(reshuffleBoard);
 		window.add(rollDice);
-		startGame(rollDice, player1, player2);
+		startGame(rollDice, startingText.getNumPlayers(), player1, player2, player3, player4);
 		window.repaint();
 	}
 
@@ -78,8 +84,8 @@ public class BoardDisplay extends JComponent {
 	 * @param startGame
 	 */
 	public static void reshuffleBoardButton() {
-		reshuffleBoard.setBounds(40 * SCALAR, 20 * SCALAR, 10 * SCALAR, 4 * SCALAR);
-		startGame.setSize(10*SCALAR, 4*SCALAR);
+		reshuffleBoard.setBounds(40 * SCALAR, 20 * SCALAR, 7 * SCALAR, 3 * SCALAR);
+		startGame.setSize(7*SCALAR, 3*SCALAR);
 		startGame.setLocation(40*SCALAR, 25 * SCALAR);
 		reshuffleClass resetHandler = new reshuffleClass();
 		startGameClass startHandler = new startGameClass();
@@ -144,12 +150,18 @@ public class BoardDisplay extends JComponent {
 		}
 	}
 	
-	public static void startGame(JButton rollDice, Player player1, Player player2) {
-		rollDice.setBounds(45 * SCALAR, 25 * SCALAR, 4 * SCALAR, 2 * SCALAR); //Sets the size and location of the button. (x, y, xdim, ydim)
+	public static void startGame(JButton rollDice, int numPlayers, Player player1, Player player2, Player player3, Player player4) {
+		rollDice.setBounds(40 * SCALAR, 25 * SCALAR, 7 * SCALAR, 3 * SCALAR); //Sets the size and location of the button. (x, y, xdim, ydim)
 		rollDiceHandler rollHandler = new rollDiceHandler();
 		rollDice.addActionListener(rollHandler);
 		turns.addPlayer(player1);
 		turns.addPlayer(player2);
+		if(numPlayers > 2) {
+			turns.addPlayer(player3);
+		}
+		if(numPlayers > 3) {
+			turns.addPlayer(player4);
+		}
 		
 	}
 	
