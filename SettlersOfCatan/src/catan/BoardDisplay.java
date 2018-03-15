@@ -21,6 +21,11 @@ public class BoardDisplay extends JComponent {
 	public static JFrame window = new JFrame("Stags of Catan");
 	public static RandomGenerator dice = new RandomGenerator(6,6);
 	public static TurnTracker turns = new TurnTracker();
+	public static JLabel player1Name = new JLabel("");
+	public static JLabel player2Name = new JLabel("");
+	public static JLabel player3Name = new JLabel("");
+	public static JLabel player4Name = new JLabel("");
+	public static JPanel playerPanel = new JPanel();
 
 	
 	private static final BoardData boardData = new BoardData();
@@ -34,6 +39,9 @@ public class BoardDisplay extends JComponent {
 		//window.setBackground(new Color(114, 162,254));<- save for later
 		window.setVisible(true);
 		window.setLayout(null); //Necessary to be able to set the direct x and y coordinates
+		window.add(playerPanel);
+		playerPanel.add(player1Name);
+		playerPanel.add(player2Name);
 		Hand starter = new Hand(0,0,0,0,0);
 		Player player1 = new Player(1, starter);
 		Player player2 = new Player(2, starter);
@@ -43,8 +51,24 @@ public class BoardDisplay extends JComponent {
 		while(hasRolled == false) {
 			try { Thread.sleep(200); } catch (InterruptedException e) {};
 		}
-		//try { Thread.sleep(500); } catch (InterruptedException e) {};
-		InitialInputTextBox startingText = new InitialInputTextBox(SCALAR); //Creates a text box read the number of players
+		InputTextBox startingText = new InputTextBox(SCALAR); //Creates a text box read the number of players
+		player1Name.setText(startingText.generatePlayerName(1) + ": Hand Size = " + player1.getTotal());
+		player2Name.setText(startingText.generatePlayerName(2) + ": Hand Size = " + player2.getTotal());
+		int panelDims = (Math.max(player1Name.getWidth(), player2Name.getWidth()));
+		playerPanel.setLocation(40*SCALAR, 3*SCALAR);
+		if(startingText.getNumPlayers() > 2) {
+			playerPanel.add(player3Name);
+			player3Name.setText(startingText.generatePlayerName(3) + ": Hand Size = " + player3.getTotal());
+			panelDims = (Math.max(panelDims, player3Name.getWidth()));
+		}
+		if(startingText.getNumPlayers() > 3) {
+			playerPanel.add(player4Name);
+			player4Name.setText(startingText.generatePlayerName(4) + ": Hand Size = " + player4.getTotal());
+			panelDims = (Math.max(panelDims, player4Name.getWidth()));
+		}
+		playerPanel.setSize(panelDims + SCALAR, 10 * SCALAR);
+		playerPanel.setVisible(true);
+		window.repaint();
 		hasRolled = false;
 		rollDice.setText("Roll Dice");
 		window.remove(startGame);
@@ -141,8 +165,6 @@ public class BoardDisplay extends JComponent {
 			}
 			else if(hasRolled == false) {
 				rollDice.setText("End Turn");
-				window.remove(rollDice);
-				window.add(rollDice);
 				window.repaint();
 				hasRolled = true;
 				JOptionPane.showMessageDialog(window, String.format("%s", "Roll: " + dice.getRandom()));

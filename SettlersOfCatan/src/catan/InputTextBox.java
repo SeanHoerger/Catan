@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class InitialInputTextBox extends JFrame {
+public class InputTextBox extends JFrame {
 
 	/**
 	 * Produces a text box to read input and determine the number of players
@@ -14,12 +14,12 @@ public class InitialInputTextBox extends JFrame {
 	private static JTextField inputField = new JTextField();
 	private static int numPlayers;
 	private static int flag = 0;
+	private static String playerName = "";
 	
-	public InitialInputTextBox(int SCALAR) 
+	public InputTextBox(int SCALAR) 
 	{
 		inputField.setColumns(3 * SCALAR / 2);
 		setTitle("Please enter the number of players:"); //Contains the instructions
-		setVisible(true);
 		setSize(20 * SCALAR, 10 * SCALAR);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocation(17*SCALAR, 12*SCALAR);
@@ -28,11 +28,12 @@ public class InitialInputTextBox extends JFrame {
 		holder.add(inputField);
 		holder.add(label);
 		add(holder);
+		try { Thread.sleep(200); } catch (InterruptedException e) {};
+		setVisible(true);
 		while(flag == 0) { //Uses a flag to determine if the user has input a valid response
 			try { Thread.sleep(500); } catch (InterruptedException e) {};
 		}
 		setVisible(false); //Remove the text window and continue the game
-		remove(holder);
 	}
 	
 	/*public static void main(String[] args) {
@@ -43,6 +44,21 @@ public class InitialInputTextBox extends JFrame {
 		return numPlayers;
 	}
 	
+	public String generatePlayerName(int playerNum) {
+		int currentFlag = flag;
+		setTitle("Enter the name of player " + playerNum + ": ");
+		inputField.setText("");
+		label.setText("");
+		try { Thread.sleep(200); } catch (InterruptedException e) {};
+		setVisible(true);
+		while(currentFlag == flag) {
+			try { Thread.sleep(200); } catch (InterruptedException e) {};
+		}
+		setVisible(false);
+		return playerName;
+	}
+	
+	
 	/**
 	 * Checks for valid inputs and returns an error message if the input is not either a 2, 3 or 4
 	 * @author andro
@@ -51,21 +67,28 @@ public class InitialInputTextBox extends JFrame {
 	private static class readInput implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			String input = inputField.getText();
-			if(input.equals("2")) {
-				numPlayers = 2;
-				flag++;
-			}
-			else if(input.equals("3")) {
-				numPlayers = 3;
-				flag++;
-			}
-			else if(input.equals("4")) {
-				numPlayers = 4;
-				flag++;
+			if(flag == 0) {
+				if(input.equals("2")) {
+					numPlayers = 2;
+					flag++;
+				}
+				else if(input.equals("3")) {
+					numPlayers = 3;
+					flag++;
+				}
+				else if(input.equals("4")) {
+					numPlayers = 4;
+					flag++;
+				}
+				else {
+					label.setText("There can only be 2 - 4 players");
+				}
 			}
 			else {
-				label.setText("There can only be 2 - 4 players");
+				playerName = input;
+				flag++;
 			}
+			
 		}
 	}
 	

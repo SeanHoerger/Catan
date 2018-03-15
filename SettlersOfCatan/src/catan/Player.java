@@ -26,6 +26,7 @@ public class Player{
 	private int playerNum;
 	private Hand hand;
 	private int[] devCards = new int[25];
+	private String playerName;
 
 	/**
 	 * Constructors
@@ -87,6 +88,10 @@ public class Player{
 	public int getTotal() {
 		return hand.getTotal();
 	}
+	
+	public String getName() {
+		return playerName;
+	}
 
 	/**
 	 * Setters
@@ -110,6 +115,10 @@ public class Player{
 
 	public void setOre(int newOre) {
 		hand.setOre(newOre);
+	}
+	
+	public void setName(String name) {
+		playerName = name;
 	}
 
 	/**
