@@ -27,6 +27,10 @@ public class BoardDisplay extends JComponent {
 	public static JLabel player4Name = new JLabel("");
 	public static JPanel playerPanel = new JPanel();
 
+	public static Player player1 = new Player(1);
+	public static Player player2 = new Player(2);
+	public static Player player3 = new Player(3);
+	public static Player player4 = new Player(4);
 	
 	private static final BoardData boardData = new BoardData();
 
@@ -43,27 +47,27 @@ public class BoardDisplay extends JComponent {
 		playerPanel.add(player1Name);
 		playerPanel.add(player2Name);
 		Hand starter = new Hand(0,0,0,0,0);
-		Player player1 = new Player(1, starter);
-		Player player2 = new Player(2, starter);
-		Player player3 = new Player(3, starter);
-		Player player4 = new Player(4, starter);
 		reshuffleBoardButton();
 		while(hasRolled == false) {
 			try { Thread.sleep(200); } catch (InterruptedException e) {};
 		}
 		InputTextBox startingText = new InputTextBox(SCALAR); //Creates a text box read the number of players
-		player1Name.setText(startingText.generatePlayerName(1) + ": Hand Size = " + player1.getTotal());
-		player2Name.setText(startingText.generatePlayerName(2) + ": Hand Size = " + player2.getTotal());
+		player1.setName(startingText.generatePlayerName(1));
+		player1Name.setText(player1.getName() + ": Hand Size = " + player1.getTotal());
+		player2.setName(startingText.generatePlayerName(2));
+		player2Name.setText(player2.getName() + ": Hand Size = " + player2.getTotal());
 		int panelDims = (Math.max(player1Name.getWidth(), player2Name.getWidth()));
 		playerPanel.setLocation(40*SCALAR, 3*SCALAR);
 		if(startingText.getNumPlayers() > 2) {
 			playerPanel.add(player3Name);
-			player3Name.setText(startingText.generatePlayerName(3) + ": Hand Size = " + player3.getTotal());
+			player3.setName(startingText.generatePlayerName(3));
+			player3Name.setText(player3.getName() + ": Hand Size = " + player3.getTotal());
 			panelDims = (Math.max(panelDims, player3Name.getWidth()));
 		}
 		if(startingText.getNumPlayers() > 3) {
 			playerPanel.add(player4Name);
-			player4Name.setText(startingText.generatePlayerName(4) + ": Hand Size = " + player4.getTotal());
+			player4.setName(startingText.generatePlayerName(4));
+			player4Name.setText(player4.getName() + ": Hand Size = " + player4.getTotal());
 			panelDims = (Math.max(panelDims, player4Name.getWidth()));
 		}
 		playerPanel.setSize(panelDims + SCALAR, 10 * SCALAR);
@@ -76,6 +80,10 @@ public class BoardDisplay extends JComponent {
 		window.add(rollDice);
 		startGame(rollDice, startingText.getNumPlayers(), player1, player2, player3, player4);
 		window.repaint();
+		player1.giveBrick(15);
+		player2.giveOre(3);
+		player2.giveOre(4);
+		updatePlayerPanel();
 	}
 
 	@Override
@@ -185,6 +193,14 @@ public class BoardDisplay extends JComponent {
 			turns.addPlayer(player4);
 		}
 		
+	}
+	
+	public static void updatePlayerPanel() {
+		player1Name.setText(player1.getName() + ": Hand Size = " + player1.getTotal());
+		player2Name.setText(player2.getName() + ": Hand Size = " + player2.getTotal());
+		player3Name.setText(player3.getName() + ": Hand Size = " + player3.getTotal());
+		player4Name.setText(player4.getName() + ": Hand Size = " + player4.getTotal());
+		window.repaint();
 	}
 	
 }
