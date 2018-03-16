@@ -8,6 +8,7 @@ public class InputTextBox extends JFrame {
 
 	/**
 	 * Produces a text box to read input and determine the number of players
+	 * Used in the initiation of the game
 	 */
 	JPanel holder = new JPanel();//Holder to contain the text field
 	private static JLabel label = new JLabel();
@@ -28,7 +29,7 @@ public class InputTextBox extends JFrame {
 		holder.add(inputField);
 		holder.add(label);
 		add(holder);
-		try { Thread.sleep(200); } catch (InterruptedException e) {};
+		try { Thread.sleep(200); } catch (InterruptedException e) {}; //Prevents error of the text field not appearing
 		setVisible(true);
 		while(flag == 0) { //Uses a flag to determine if the user has input a valid response
 			try { Thread.sleep(500); } catch (InterruptedException e) {};
@@ -44,14 +45,20 @@ public class InputTextBox extends JFrame {
 		return numPlayers;
 	}
 	
+	/**
+	 * Reads the input and uses the information to set the player's name
+	 * @param playerNum
+	 * Used to update the title message to indicate which player's name is being entered, otherwise irrelevant
+	 * @return
+	 */
 	public String generatePlayerName(int playerNum) {
-		int currentFlag = flag;
+		int currentFlag = flag; //Used to indiate if the player name has been entered
 		setTitle("Enter the name of player " + playerNum + ": ");
 		inputField.setText("");
 		label.setText("");
 		try { Thread.sleep(200); } catch (InterruptedException e) {};
 		setVisible(true);
-		while(currentFlag == flag) {
+		while(currentFlag == flag) { //moves on if any input is entered
 			try { Thread.sleep(200); } catch (InterruptedException e) {};
 		}
 		setVisible(false);
@@ -67,7 +74,7 @@ public class InputTextBox extends JFrame {
 	private static class readInput implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			String input = inputField.getText();
-			if(flag == 0) {
+			if(flag == 0) { //If this is the initial screen indicating the number of players
 				if(input.equals("2")) {
 					numPlayers = 2;
 					flag++;
@@ -84,7 +91,7 @@ public class InputTextBox extends JFrame {
 					label.setText("There can only be 2 - 4 players");
 				}
 			}
-			else {
+			else { //Else, it is an input determining the name of a player
 				playerName = input;
 				flag++;
 			}
