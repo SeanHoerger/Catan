@@ -56,7 +56,6 @@ public class BoardDisplay extends JComponent {
 		reshuffleBoardButton();
 		setPlayerNames();
 		startGame(rollDice, player1, player2, player3, player4);
-		window.repaint();
 	}
 
 	
@@ -171,7 +170,7 @@ public class BoardDisplay extends JComponent {
 		if(numPlayers > 3) {
 			turns.addPlayer(player4);
 		}
-		
+		window.repaint();
 	}
 	
 	/**
