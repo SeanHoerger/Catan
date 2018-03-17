@@ -142,7 +142,7 @@ public class BoardDisplay extends JComponent {
 				rollDice.setText("Roll Dice");
 				window.repaint();
 				hasRolled = false;
-				JOptionPane.showMessageDialog(window, String.format("%s", "Player Turn: " + turns.getPlayerTurn()));
+				JOptionPane.showMessageDialog(window, String.format("%s", returnCurrentPlayer() + "'s Turn"));
 			}
 			else if(hasRolled == false) {
 				rollDice.setText("End Turn");
@@ -182,6 +182,21 @@ public class BoardDisplay extends JComponent {
 		player3Name.setText(player3.getName() + ": Hand Size = " + player3.getTotal());
 		player4Name.setText(player4.getName() + ": Hand Size = " + player4.getTotal());
 		window.repaint();
+	}
+	
+	public static String returnCurrentPlayer() {
+		if(turns.getPlayerTurn() == 1) {
+			return player1.getName();
+		}
+		if(turns.getPlayerTurn() == 2) {
+			return player2.getName();
+		}
+		if(turns.getPlayerTurn() == 3) {
+			return player3.getName();
+		}
+		else{
+			return player4.getName();
+		}
 	}
 	
 	
