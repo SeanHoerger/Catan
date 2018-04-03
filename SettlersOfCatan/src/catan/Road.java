@@ -7,33 +7,68 @@ import java.awt.Graphics2D;
 
 public class Road {
 	
-	//private Vertex start; // starting point
-	//private Vertex end; // end point
-	private Location start; // temporary cause vertexes don't exist yet
-	private Location end; // temporary cause vertexes don't exist yet
+	private int x1;
+	private int x2;
+	private int y1;
+	private int y2;
 	private Color color;
 	
-	public Road() {
-		start = new Location();
-		end = new Location();
-		color = Color.black;
-	}
-	
 	public Road(int startX, int startY, int endX, int endY, Color roadColor) {
-		start = new Location(startX, startY);
-		end = new Location(endX, endY);
+		if (startX <= endX) {
+			x1 = startX;
+			x2 = endX;
+			y1 = startY;
+			y2 = endY;
+		}
+		else {
+			x1 = endX;
+			x2 = startX;
+			y1 = endY;
+			y2 = startY;
+		}
 		color = roadColor;
 	}
 	
+	/*
+	public Road(Vertex start, Vertex end, Color roadColor) {
+		x1 = start.get()X;
+		x2 = end.get()X;
+		y1 = start.get()Y;
+		y2 = endY.get();
+		color = roadColor;
+	}
+	*/
+	
 	public void draw(Graphics g) {
+		
+		double xD = x2 - x1;
+		double yD = y2 - y1;
+		double totalD = Math.sqrt(xD*xD + yD*yD);
+		double d = 0.2 * totalD;
+		
+		double slope;
+		int xDelta; 
+		int yDelta;
+		
+		if(xD == 0.0) {
+			xDelta = 0;
+			yDelta = (int) d;
+		}
+		else {
+			slope = (yD / xD);
+			xDelta = (int) (d / Math.sqrt(1 + slope*slope));
+			yDelta = (int) (xDelta * slope);
+		}
+		
+		
+		
 		Graphics2D g2 = (Graphics2D) g;
-		g2.setColor(color);
-        g2.setStroke(new BasicStroke(15.0f, BasicStroke.CAP_BUTT, BasicStroke.CAP_ROUND));
-		g2.drawLine(start.getX(), start.getY(), end.getX(), end.getY());
 		g2.setColor(Color.BLACK);
-		float[] dash1 = {10.0f};
-		g2.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.CAP_ROUND, 10.0f, dash1, 0.0f));
-		g2.drawLine(start.getX(), start.getY(), end.getX(), end.getY());
+        g2.setStroke(new BasicStroke(12.0f, BasicStroke.CAP_BUTT, BasicStroke.CAP_ROUND));
+		g2.drawLine(x1+xDelta, y1+yDelta, x2-xDelta, y2-yDelta);
+		g2.setColor(color);
+		g2.setStroke(new BasicStroke(10.0f, BasicStroke.CAP_BUTT, BasicStroke.CAP_ROUND, 10.0f));
+		g2.drawLine(x1+xDelta, y1+yDelta, x2-xDelta, y2-yDelta);
 	}
 	
 }

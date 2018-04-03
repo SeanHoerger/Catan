@@ -83,8 +83,13 @@ public class BoardDisplay extends JComponent {
 		testPlayer.displayHand(g);
 		
 		// road test
-		Road road = new Road(100, 100, 400, 400, Color.RED);
-		road.draw(g);
+		Road r1 = new Road(XSTART, YSTART, XSTART+3*SCALAR, YSTART+2*SCALAR, Color.RED);
+		Road r2 = new Road(XSTART, YSTART, XSTART-3*SCALAR, YSTART+2*SCALAR, Color.ORANGE);
+		Road r3 = new Road(XSTART+3*SCALAR, YSTART+2*SCALAR, XSTART+3*SCALAR, YSTART+5*SCALAR, Color.BLUE);
+		r1.draw(g);
+		r2.draw(g);
+		r3.draw(g);
+		
 	}
 	
 	/**
