@@ -22,6 +22,7 @@ public class BoardDisplay extends JComponent {
 	public static JFrame window = new JFrame("Stags of Catan");
 	public static RandomGenerator dice = new RandomGenerator(6,6);
 	public static TurnTracker turns = new TurnTracker();
+	public static JButton buildMenu = new JButton("Build (B)");
 	
 	/**
 	 * JLabels control the text that indicates the player names and hand sizes
@@ -55,7 +56,7 @@ public class BoardDisplay extends JComponent {
 		window.setLayout(null); //Necessary to be able to set the direct x and y coordinates
 		reshuffleBoardButton();
 		setPlayerNames();
-		startGame(rollDice, player1, player2, player3, player4);
+		startGame(player1, player2, player3, player4);
 	}
 
 	
@@ -153,15 +154,27 @@ public class BoardDisplay extends JComponent {
 		}
 	}
 	
-	public static void startGame(JButton rollDice, Player player1, Player player2, Player player3, Player player4) {
+	private static class buildMenuHandler implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			BuildPanel buildPanel = new BuildPanel(SCALAR);
+		}
+	}
+	
+	
+	public static void startGame(Player player1, Player player2, Player player3, Player player4) {
 		hasRolled = false;
 		rollDice.setText("Roll Dice");
 		window.remove(startGame);
 		window.remove(reshuffleBoard);
 		window.add(rollDice);
+		window.add(buildMenu);
 		rollDice.setBounds(40 * SCALAR, 25 * SCALAR, 7 * SCALAR, 3 * SCALAR); //Sets the size and location of the button. (x, y, xdim, ydim)
 		rollDiceHandler rollHandler = new rollDiceHandler();
 		rollDice.addActionListener(rollHandler);
+		buildMenu.setBounds(40 * SCALAR, 20 * SCALAR, 7 * SCALAR, 3 * SCALAR); //Sets the size and location of the button. (x, y, xdim, ydim)
+		buildMenuHandler buildHandler = new buildMenuHandler();
+		buildMenu.addActionListener(buildHandler);
 		turns.addPlayer(player1);
 		turns.addPlayer(player2);
 		if(numPlayers > 2) {
