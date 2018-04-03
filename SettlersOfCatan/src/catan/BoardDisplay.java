@@ -99,9 +99,8 @@ public class BoardDisplay extends JComponent {
 	 * @param startGame
 	 */
 	public static void reshuffleBoardButton() {
-		reshuffleBoard.setBounds(40 * SCALAR, 3 * SCALAR, 7 * SCALAR, 3 * SCALAR);
-		startGame.setSize(7*SCALAR, 3*SCALAR);
-		startGame.setLocation(40*SCALAR, 6 * SCALAR);
+		reshuffleBoard.setBounds(44 * SCALAR, 23 * SCALAR, 7 * SCALAR, 3*SCALAR);
+		startGame.setBounds(44 * SCALAR, 27 * SCALAR, 7 * SCALAR, 3*SCALAR);
 		reshuffleClass resetHandler = new reshuffleClass();
 		startGameClass startHandler = new startGameClass();
 		reshuffleBoard.addActionListener(resetHandler);
@@ -167,6 +166,7 @@ public class BoardDisplay extends JComponent {
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			BuildPanel buildPanel = new BuildPanel(SCALAR);
+			buildPanel.setVisible(true);
 		}
 	}
 	
@@ -178,10 +178,10 @@ public class BoardDisplay extends JComponent {
 		window.remove(reshuffleBoard);
 		window.add(rollDice);
 		window.add(buildMenu);
-		rollDice.setBounds(40 * SCALAR, 25 * SCALAR, 7 * SCALAR, 3 * SCALAR); //Sets the size and location of the button. (x, y, xdim, ydim)
+		rollDice.setBounds(44 * SCALAR, 27 * SCALAR, 7 * SCALAR, 3*SCALAR); //Sets the size and location of the button. (x, y, xdim, ydim)
 		rollDiceHandler rollHandler = new rollDiceHandler();
 		rollDice.addActionListener(rollHandler);
-		buildMenu.setBounds(40 * SCALAR, 20 * SCALAR, 7 * SCALAR, 3 * SCALAR); //Sets the size and location of the button. (x, y, xdim, ydim)
+		buildMenu.setBounds(44 * SCALAR, 23 * SCALAR, 7 * SCALAR, 3*SCALAR); //Sets the size and location of the button. (x, y, xdim, ydim)
 		buildMenuHandler buildHandler = new buildMenuHandler();
 		buildMenu.addActionListener(buildHandler);
 		turns.addPlayer(player1);
