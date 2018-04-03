@@ -78,10 +78,19 @@ public class BoardDisplay extends JComponent {
 			boardData.getTileAt(i).drawTile(g);
 		}
 		
-		//card test
-		//Hand testHand = new Hand(8,0,2,3,12);
-		//Player testPlayer = new Player(1, testHand);
-		//testPlayer.displayHand(g);
+		// card test
+		Hand testHand = new Hand(8,0,2,3,12);
+		Player testPlayer = new Player(1, testHand);
+		testPlayer.displayHand(g);
+		
+		// road test
+		Road r1 = new Road(XSTART, YSTART, XSTART+3*SCALAR, YSTART+2*SCALAR, Color.RED);
+		Road r2 = new Road(XSTART, YSTART, XSTART-3*SCALAR, YSTART+2*SCALAR, Color.ORANGE);
+		Road r3 = new Road(XSTART+3*SCALAR, YSTART+2*SCALAR, XSTART+3*SCALAR, YSTART+5*SCALAR, Color.BLUE);
+		r1.draw(g);
+		r2.draw(g);
+		r3.draw(g);
+		
 	}
 	
 	/**
@@ -90,9 +99,9 @@ public class BoardDisplay extends JComponent {
 	 * @param startGame
 	 */
 	public static void reshuffleBoardButton() {
-		reshuffleBoard.setBounds(40 * SCALAR, 20 * SCALAR, 7 * SCALAR, 3 * SCALAR);
+		reshuffleBoard.setBounds(40 * SCALAR, 3 * SCALAR, 7 * SCALAR, 3 * SCALAR);
 		startGame.setSize(7*SCALAR, 3*SCALAR);
-		startGame.setLocation(40*SCALAR, 25 * SCALAR);
+		startGame.setLocation(40*SCALAR, 6 * SCALAR);
 		reshuffleClass resetHandler = new reshuffleClass();
 		startGameClass startHandler = new startGameClass();
 		reshuffleBoard.addActionListener(resetHandler);
