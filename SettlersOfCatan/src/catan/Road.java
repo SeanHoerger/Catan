@@ -44,7 +44,7 @@ public class Road {
 		double xD = x2 - x1;
 		double yD = y2 - y1;
 		double totalD = Math.sqrt(xD*xD + yD*yD);
-		double d = 0.2 * totalD;
+		double d = 0.25 * totalD;
 		
 		double slope;
 		int xDelta; 
@@ -69,6 +69,7 @@ public class Road {
 		g2.setColor(color);
 		g2.setStroke(new BasicStroke(10.0f, BasicStroke.CAP_BUTT, BasicStroke.CAP_ROUND, 10.0f));
 		g2.drawLine(x1+xDelta, y1+yDelta, x2-xDelta, y2-yDelta);
+		g2.setStroke(new BasicStroke());
 	}
 	
 }

@@ -14,7 +14,7 @@ public class BoardDisplay extends JComponent {
 	public static final int YDIM = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	public static final int SCALAR = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 55); // <-- magic number: 55
 	public static final int XSTART = 10*SCALAR;
-	public static final int YSTART = SCALAR;
+	public static final int YSTART = (int)(1.5*SCALAR);
 	public static int numPlayers = 0;
 	public static JButton startGame = new JButton("Start Game");
 	public static JButton reshuffleBoard = new JButton("Reshuffle Board");
@@ -90,6 +90,14 @@ public class BoardDisplay extends JComponent {
 		r1.draw(g);
 		r2.draw(g);
 		r3.draw(g);
+		
+		// settlement test
+		Settlement s1 = new Settlement(XSTART, YSTART, Color.RED);
+		s1.draw(g);
+		
+		// city test
+		City c1 = new City(XSTART + 3*SCALAR, YSTART + 2*SCALAR, Color.WHITE);
+		c1.draw(g);
 		
 	}
 	
