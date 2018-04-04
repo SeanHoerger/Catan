@@ -26,37 +26,9 @@ public class TurnTracker {
 	private int SCALAR;
 	/**
 	 * Constructor
-	 * Assumes player1 is the starting player
-	 * Only 3 constructors since you cannot play the game with only 1 player
-	 * (Note: This will need to change if we implement AI)
+	 * Players are added through the method, not initialized
 	 */
-	public TurnTracker(JFrame hostWindow, int SCALAR, Player one, Player two, Player three, Player four) {
-		this.window = hostWindow;
-		this.SCALAR = SCALAR;
-		this.player1 = one;
-		this.player2 = two;
-		this.player3 = three;
-		this.player4 = four;
-		this.numPlayers = 4;
-	}
-	
-	public TurnTracker(JFrame hostWindow, int SCALAR, Player one, Player two, Player three) {
-		this.window = hostWindow;
-		this.SCALAR = SCALAR;
-		this.player1 = one;
-		this.player2 = two;
-		this.player3 = three;
-		this.numPlayers = 3;
-	}
-	
-	public TurnTracker(JFrame hostWindow, int SCALAR, Player one, Player two) {
-		this.window = hostWindow;
-		this.SCALAR = SCALAR;
-		this.player1 = one;
-		this.player2 = two;
-		this.numPlayers = 2;
-	}
-	
+
 	public TurnTracker() { //Generic constructor
 		this.numPlayers = 0;
 	}
@@ -124,20 +96,22 @@ public class TurnTracker {
 	 * @param player
 	 */
 	public void addPlayer(Player player) {
-		if(this.numPlayers == 0) {
-			this.player1 = player;
+		if(this.numPlayers < 4) {
+			if(this.numPlayers == 0) {
+				this.player1 = player;
+			}
+			if(this.numPlayers == 1) {
+				this.player2 = player;
+			}
+			if(this.numPlayers == 2) {
+				this.player3 = player;
+			}
+			if(this.numPlayers == 3) {
+				this.player4 = player;
+				this.numPlayers--;
+			}
+			this.numPlayers++;
 		}
-		if(this.numPlayers == 1) {
-			this.player2 = player;
-		}
-		if(this.numPlayers == 2) {
-			this.player3 = player;
-		}
-		if(this.numPlayers == 3) {
-			this.player4 = player;
-			this.numPlayers--;
-		}
-		this.numPlayers++;
 	}
 	
 	

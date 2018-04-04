@@ -155,7 +155,7 @@ public class BoardDisplay extends JComponent{
 				rollDice.setText("Roll Dice");
 				window.repaint();
 				hasRolled = false;
-				JOptionPane.showMessageDialog(window, String.format("%s", returnCurrentPlayer() + "'s Turn"));
+				JOptionPane.showMessageDialog(window, String.format("%s", turns.returnCurrentPlayer().getName() + "'s Turn"));
 			}
 			else if(hasRolled == false) {
 				rollDice.setText("End Turn");
@@ -211,22 +211,7 @@ public class BoardDisplay extends JComponent{
 		player4Name.setText(player4.getName() + ": Hand Size = " + player4.getTotal());
 		window.repaint();
 	}
-	
-	public static String returnCurrentPlayer() {
-		if(turns.getPlayerTurn() == 1) {
-			return player1.getName();
-		}
-		if(turns.getPlayerTurn() == 2) {
-			return player2.getName();
-		}
-		if(turns.getPlayerTurn() == 3) {
-			return player3.getName();
-		}
-		else{
-			return player4.getName();
-		}
-	}
-	
+		
 	
 	/**
 	 * Adds the panel and labels to the screen, and takes in user input to set the names of the players
