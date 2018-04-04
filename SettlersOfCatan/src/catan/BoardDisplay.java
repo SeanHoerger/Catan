@@ -165,7 +165,7 @@ public class BoardDisplay extends JComponent {
 	private static class buildMenuHandler implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent event) {
-			BuildPanel buildPanel = new BuildPanel(SCALAR);
+			BuildPanel buildPanel = new BuildPanel(SCALAR, turns.returnCurrentPlayer());
 			buildPanel.setVisible(true);
 		}
 	}
@@ -236,27 +236,33 @@ public class BoardDisplay extends JComponent {
 		/**
 		 * Calls the generatePlayerName function for each player, and updates the associated JLabel
 		 */
-		player1.setName(startingText.generatePlayerName(1));
+		//TODO: Edit the below lines according to the comments
+		player1.setName("Andreas");  //Remove
+		player2.setName("Sean");   	 //Remove
+		//player1.setName(startingText.generatePlayerName(1));		//Reenable
 		player1Name.setText(player1.getName() + ": Hand Size = " + player1.getTotal());
-		player2.setName(startingText.generatePlayerName(2));
+		//player2.setName(startingText.generatePlayerName(2));		//Reenable
 		player2Name.setText(player2.getName() + ": Hand Size = " + player2.getTotal());
 		int panelDims = (Math.max(player1Name.getWidth(), player2Name.getWidth()));
 		playerPanel.setLocation(40*SCALAR, 3*SCALAR);
 		if(startingText.getNumPlayers() > 2) {
 			playerPanel.add(player3Name);
-			player3.setName(startingText.generatePlayerName(3));
+			//player3.setName(startingText.generatePlayerName(3)); 	//Reenable
 			player3Name.setText(player3.getName() + ": Hand Size = " + player3.getTotal());
 			panelDims = (Math.max(panelDims, player3Name.getWidth()));
 		}
 		if(startingText.getNumPlayers() > 3) {
 			playerPanel.add(player4Name);
-			player4.setName(startingText.generatePlayerName(4));
+			//player4.setName(startingText.generatePlayerName(4));	//Reenable
 			player4Name.setText(player4.getName() + ": Hand Size = " + player4.getTotal());
 			panelDims = (Math.max(panelDims, player4Name.getWidth()));
 		}
-		numPlayers = startingText.getNumPlayers();
+		numPlayers = 2;									//Remove
+		player2.giveBrick(1);							//Remove
+		player2.giveWood(1);							//Remove
+		//numPlayers = startingText.getNumPlayers();	//Reenable
 		playerPanel.setSize(panelDims + SCALAR, 10 * SCALAR);
-		playerPanel.setVisible(true);
+		playerPanel.setVisible(false);					//Change from false to true
 		window.repaint();
 	}
 	

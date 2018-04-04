@@ -71,6 +71,21 @@ public class TurnTracker {
 		return playerTurn;
 	}
 	
+	public Player returnCurrentPlayer() {
+		if(playerTurn == 1) {
+			return player1;
+		}
+		else if(playerTurn == 2) {
+			return player2;
+		}
+		else if(playerTurn == 3) {
+			return player3;
+		}
+		else{
+			return player4;
+		}
+	}
+	
 	/**
 	 * Function to cycle the player turns
 	 */

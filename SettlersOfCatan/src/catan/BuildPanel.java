@@ -17,36 +17,63 @@ public class BuildPanel extends JFrame{
 	private static int SCALAR;
 	private static int flag = 0;
 	
-	public BuildPanel(int scalar) {
+	public BuildPanel(int scalar, Player player) {
 		SCALAR = scalar;
+		currentPlayer = player;
 		setTitle("Build Panel"); //Contains the instructions
-		setSize(25 * SCALAR, 15 * SCALAR);
-		setLocation(15*SCALAR, 10*SCALAR);
-		setLayout(null);
+		setSize(30 * SCALAR, 15 * SCALAR);
+		setLocation(13*SCALAR, 8*SCALAR);
+		holder.setLayout(null);
+		label.setBounds(11*SCALAR, SCALAR, 10*SCALAR, SCALAR);
 		holder.add(label);
-		buildRoad.setBounds(SCALAR, SCALAR, 50*SCALAR, 50*SCALAR);
+		initializeButtons();
 		holder.add(buildRoad);
-		/*
-		buildSettlement.setBounds(3*SCALAR, 2*SCALAR, 2*SCALAR, 2*SCALAR);
 		holder.add(buildSettlement);
-		buildCity.setBounds(6*SCALAR, 2*SCALAR, 2*SCALAR, 2*SCALAR);
 		holder.add(buildCity);
-		buildDevCard.setBounds(9*SCALAR, 2*SCALAR, 2*SCALAR, 2*SCALAR);
 		holder.add(buildDevCard);
-		*/
 		add(holder);
-		/*
-		try { Thread.sleep(200); } catch (InterruptedException e) {}; //Prevents error of the text field not appearing
-		setVisible(true);
-		while(flag == 0) { //Uses a flag to determine if the user has input a valid response
-			try { Thread.sleep(500); } catch (InterruptedException e) {};
-		}
-		setVisible(false); //Remove the text window and continue the game
-		*/
 	}
 	
-	public void updateCurrentPlayer(Player player) {
-		currentPlayer = player;
+	public void initializeButtons() {
+		buildRoad.setBounds(SCALAR, 8*SCALAR, 6*SCALAR, 3*SCALAR);
+		buildSettlement.setBounds(8*SCALAR, 8*SCALAR, 6*SCALAR, 3*SCALAR);
+		buildCity.setBounds(15*SCALAR, 8*SCALAR, 6*SCALAR, 3*SCALAR);
+		buildDevCard.setBounds(22*SCALAR, 8*SCALAR, 6*SCALAR, 3*SCALAR);
+		
+		//Road image
+		Icon road = new ImageIcon(getClass().getResource("Road.png"));
+		Icon no = new ImageIcon(getClass().getResource("No_Sign.png"));
+		if(currentPlayer.getBrick() > 0 && currentPlayer.getWood() > 0) {
+			buildRoad.setIcon(road);
+		}
+		else{
+			buildRoad.setIcon(no);
+		}
+		
+		//TODO: Settlement image
+		if(currentPlayer.getBrick() > 0 && currentPlayer.getWood() > 0
+				&& currentPlayer.getWheat() > 0 && currentPlayer.getSheep() > 0) {
+			
+		}
+		else {
+			buildSettlement.setIcon(no);
+		}
+		
+		//TODO: City image
+		if(currentPlayer.getWheat() > 1 && currentPlayer.getOre() > 2) {
+			
+		}
+		else {
+			buildCity.setIcon(no);
+		}
+		
+		//TODO: Dev Card Image
+		if(currentPlayer.getWheat() > 0 && currentPlayer.getSheep() > 0 && currentPlayer.getOre() > 0) {
+			
+		}
+		else {
+			buildDevCard.setIcon(no);
+		}
 	}
 
 }

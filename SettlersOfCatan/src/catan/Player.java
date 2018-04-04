@@ -81,7 +81,7 @@ public class Player{
 		return hand.getWheat();
 	}
 
-	public int getIron() {
+	public int getOre() {
 		return hand.getOre();
 	}
 
