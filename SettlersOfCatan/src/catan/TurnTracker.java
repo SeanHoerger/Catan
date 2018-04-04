@@ -38,7 +38,6 @@ public class TurnTracker {
 		this.player3 = three;
 		this.player4 = four;
 		this.numPlayers = 4;
-		//this.addEndTurnButton();
 	}
 	
 	public TurnTracker(JFrame hostWindow, int SCALAR, Player one, Player two, Player three) {
@@ -48,7 +47,6 @@ public class TurnTracker {
 		this.player2 = two;
 		this.player3 = three;
 		this.numPlayers = 3;
-		//this.addEndTurnButton();
 	}
 	
 	public TurnTracker(JFrame hostWindow, int SCALAR, Player one, Player two) {
@@ -57,7 +55,6 @@ public class TurnTracker {
 		this.player1 = one;
 		this.player2 = two;
 		this.numPlayers = 2;
-		//this.addEndTurnButton();
 	}
 	
 	public TurnTracker() { //Generic constructor
@@ -107,7 +104,6 @@ public class TurnTracker {
 		endTurn.setSize(20, 40);
 		HandlerClass handler = new HandlerClass();
 		endTurn.addActionListener(handler);
-		//window.add(endTurn);
 
 	}
 	
@@ -119,7 +115,6 @@ public class TurnTracker {
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			cycleTurn();
-			//JOptionPane.showMessageDialog(window, String.format("%s", "PlayerTurn: " + playerTurn));
 		}
 	}
 	

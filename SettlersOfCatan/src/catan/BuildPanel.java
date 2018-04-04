@@ -5,6 +5,9 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+/*
+ * Opens a build panel menu for the player to select what they want to build
+ */
 public class BuildPanel extends JFrame{
 	
 	JPanel holder = new JPanel(); // Window to hold the options
@@ -34,6 +37,10 @@ public class BuildPanel extends JFrame{
 		add(holder);
 	}
 	
+	/**
+	 * Sets the locations of the buttons and edits the images of the buttons depending on the resources
+	 * of the current player
+	 */
 	public void initializeButtons() {
 		buildRoad.setBounds(SCALAR, 8*SCALAR, 6*SCALAR, 3*SCALAR);
 		buildSettlement.setBounds(8*SCALAR, 8*SCALAR, 6*SCALAR, 3*SCALAR);

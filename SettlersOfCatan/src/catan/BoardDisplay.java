@@ -2,12 +2,13 @@ package catan;
 
 import java.awt.*;
 
+
 import java.awt.event.*;
 import javax.swing.*;
 
 // This class is where the visuals are displayed. It also contains the main method.
 
-public class BoardDisplay extends JComponent {
+public class BoardDisplay extends JComponent{
 
 	public static boolean hasRolled = false; //flag to register when the Start! button has been pressed. Recycled to flag if the dice have been rolled this turn
 	public static final int XDIM = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
@@ -22,7 +23,7 @@ public class BoardDisplay extends JComponent {
 	public static JFrame window = new JFrame("Stags of Catan");
 	public static RandomGenerator dice = new RandomGenerator(6,6);
 	public static TurnTracker turns = new TurnTracker();
-	public static JButton buildMenu = new JButton("Build (B)");
+	public static JButton buildMenu = new JButton("Build");
 	
 	/**
 	 * JLabels control the text that indicates the player names and hand sizes
@@ -44,6 +45,8 @@ public class BoardDisplay extends JComponent {
 	public static Player player4 = new Player(4);
 	
 	private static final BoardData boardData = new BoardData();
+	private static final char BUILD = 'b';
+	private static final char END = 'n';
 
 	public static void main(String[] args) {
 		window.add(new BoardDisplay());
@@ -148,6 +151,7 @@ public class BoardDisplay extends JComponent {
 		public void actionPerformed(ActionEvent event) {
 			if(hasRolled == true) {
 				turns.cycleTurn();
+				buildMenu.setVisible(false);
 				rollDice.setText("Roll Dice");
 				window.repaint();
 				hasRolled = false;
@@ -155,6 +159,7 @@ public class BoardDisplay extends JComponent {
 			}
 			else if(hasRolled == false) {
 				rollDice.setText("End Turn");
+				buildMenu.setVisible(true);
 				window.repaint();
 				hasRolled = true;
 				JOptionPane.showMessageDialog(window, String.format("%s", "Roll: " + dice.getRandom()));
@@ -178,6 +183,7 @@ public class BoardDisplay extends JComponent {
 		window.remove(reshuffleBoard);
 		window.add(rollDice);
 		window.add(buildMenu);
+		buildMenu.setVisible(false); //Initially invisible until Roll Dice Button is pressed
 		rollDice.setBounds(44 * SCALAR, 27 * SCALAR, 7 * SCALAR, 3*SCALAR); //Sets the size and location of the button. (x, y, xdim, ydim)
 		rollDiceHandler rollHandler = new rollDiceHandler();
 		rollDice.addActionListener(rollHandler);
@@ -266,4 +272,30 @@ public class BoardDisplay extends JComponent {
 		window.repaint();
 	}
 	
+/*
+	//Functionality for implementing KeyListener	
+	public void keyPressed(KeyEvent evt) {
+	
+		switch (evt.getKeyChar()) {
+		case BUILD:
+			if(buildMenu.isVisible() == true) {
+				buildMenu.doClick();
+			}
+			break;
+		case END:
+			System.out.println("End button pressed");
+			break;
+		default:
+			System.out.println("Some button pressed");
+		}
+	}
+
+	public void keyReleased(KeyEvent evt) {
+	// Not used
+	}
+
+	public void keyTyped(KeyEvent evt) {
+	// Not used
+	}
+	*/
 }
