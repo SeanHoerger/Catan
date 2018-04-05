@@ -3,6 +3,7 @@ package catan;
 import java.awt.*;
 
 
+
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -17,6 +18,9 @@ public class BoardDisplay extends JComponent{
 	public static final int XSTART = 10*SCALAR;
 	public static final int YSTART = SCALAR;
 	public static int numPlayers = 0;
+	
+	public static int gameOver = 0;
+	
 	public static JButton startGame = new JButton("Start Game");
 	public static JButton reshuffleBoard = new JButton("Reshuffle Board");
 	public static JButton rollDice = new JButton();
@@ -24,6 +28,8 @@ public class BoardDisplay extends JComponent{
 	public static RandomGenerator dice = new RandomGenerator(6,6);
 	public static TurnTracker turns = new TurnTracker();
 	public static JButton buildMenu = new JButton("Build");
+	
+	public static KeyboardReader keyboardInput = new KeyboardReader();
 	
 	/**
 	 * JLabels control the text that indicates the player names and hand sizes
@@ -45,8 +51,6 @@ public class BoardDisplay extends JComponent{
 	public static Player player4 = new Player(4);
 	
 	private static final BoardData boardData = new BoardData();
-	private static final char BUILD = 'b';
-	private static final char END = 'n';
 
 	public static void main(String[] args) {
 		window.add(new BoardDisplay());
@@ -60,6 +64,14 @@ public class BoardDisplay extends JComponent{
 		reshuffleBoardButton();
 		setPlayerNames();
 		startGame(player1, player2, player3, player4);
+		System.out.println("Keylistener Added");
+		window.addKeyListener(keyboardInput);
+		while(gameOver == 0) {
+			window.requestFocus();
+			if(keyboardInput.buildPressed()) {
+				System.out.println("Pressed");
+			}
+		}
 	}
 
 	
@@ -223,64 +235,37 @@ public class BoardDisplay extends JComponent{
 		while(hasRolled == false) {
 			try { Thread.sleep(200); } catch (InterruptedException e) {};
 		}
-		InputTextBox startingText = new InputTextBox(SCALAR); //Creates a text box read the number of players
+		//TODO: Reenable the following line
+		//InputTextBox startingText = new InputTextBox(SCALAR); //Creates a text box read the number of players
 		/**
 		 * Calls the generatePlayerName function for each player, and updates the associated JLabel
 		 */
-		//TODO: Edit the below lines according to the comments
-		player1.setName("Andreas");  //Remove
-		player2.setName("Sean");   	 //Remove
-		//player1.setName(startingText.generatePlayerName(1));		//Reenable
+		//TODO: Uncomment this
+		/*
+		player1.setName(startingText.generatePlayerName(1));		
 		player1Name.setText(player1.getName() + ": Hand Size = " + player1.getTotal());
-		//player2.setName(startingText.generatePlayerName(2));		//Reenable
+		player2.setName(startingText.generatePlayerName(2));		
 		player2Name.setText(player2.getName() + ": Hand Size = " + player2.getTotal());
 		int panelDims = (Math.max(player1Name.getWidth(), player2Name.getWidth()));
 		playerPanel.setLocation(40*SCALAR, 3*SCALAR);
 		if(startingText.getNumPlayers() > 2) {
 			playerPanel.add(player3Name);
-			//player3.setName(startingText.generatePlayerName(3)); 	//Reenable
+			player3.setName(startingText.generatePlayerName(3)); 	
 			player3Name.setText(player3.getName() + ": Hand Size = " + player3.getTotal());
 			panelDims = (Math.max(panelDims, player3Name.getWidth()));
 		}
 		if(startingText.getNumPlayers() > 3) {
 			playerPanel.add(player4Name);
-			//player4.setName(startingText.generatePlayerName(4));	//Reenable
+			player4.setName(startingText.generatePlayerName(4));	
 			player4Name.setText(player4.getName() + ": Hand Size = " + player4.getTotal());
 			panelDims = (Math.max(panelDims, player4Name.getWidth()));
 		}
-		numPlayers = 2;									//Remove
-		player2.giveBrick(1);							//Remove
-		player2.giveWood(1);							//Remove
-		//numPlayers = startingText.getNumPlayers();	//Reenable
+		numPlayers = startingText.getNumPlayers();	
 		playerPanel.setSize(panelDims + SCALAR, 10 * SCALAR);
-		playerPanel.setVisible(false);					//Change from false to true
+		playerPanel.setVisible(true);					
 		window.repaint();
+		*/
 	}
 	
-/*
-	//Functionality for implementing KeyListener	
-	public void keyPressed(KeyEvent evt) {
-	
-		switch (evt.getKeyChar()) {
-		case BUILD:
-			if(buildMenu.isVisible() == true) {
-				buildMenu.doClick();
-			}
-			break;
-		case END:
-			System.out.println("End button pressed");
-			break;
-		default:
-			System.out.println("Some button pressed");
-		}
-	}
 
-	public void keyReleased(KeyEvent evt) {
-	// Not used
-	}
-
-	public void keyTyped(KeyEvent evt) {
-	// Not used
-	}
-	*/
 }

@@ -32,8 +32,8 @@ public class InputTextBox extends JFrame {
 		try { Thread.sleep(200); } catch (InterruptedException e) {}; //Prevents error of the text field not appearing
 		setVisible(true);
 		//TODO: remove the following 2 lines
-		numPlayers = 2;
-		flag = 1;
+		//numPlayers = 2;
+		//flag = 1;
 		while(flag == 0) { //Uses a flag to determine if the user has input a valid response
 			try { Thread.sleep(500); } catch (InterruptedException e) {};
 		}
