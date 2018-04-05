@@ -235,4 +235,38 @@ public class Player{
 	public void displayHand(Graphics g) {
 		hand.display(g);
 	}
+	
+	/**
+	 * Boolean methods to return if the player can build certain objects
+	 */
+	
+	public boolean canBuildRoad() {
+		if(hand.getBrick()> 0 && hand.getWood() > 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean canBuildSettlement() {
+		if(hand.getBrick()> 0 && hand.getWood() > 0 && hand.getSheep() > 0 && hand.getWheat() >0) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean canBuildCity() {
+		if(hand.getWheat()> 1 && hand.getOre() > 2) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean canBuildDevCard() {
+		if(hand.getSheep()> 0 && hand.getWheat() > 0 && hand.getOre() > 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	
 }

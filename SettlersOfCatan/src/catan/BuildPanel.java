@@ -30,6 +30,7 @@ public class BuildPanel extends JFrame{
 		label.setBounds(11*SCALAR, SCALAR, 10*SCALAR, SCALAR);
 		holder.add(label);
 		initializeButtons();
+		initializeButtonIcons();
 		holder.add(buildRoad);
 		holder.add(buildSettlement);
 		holder.add(buildCity);
@@ -47,10 +48,25 @@ public class BuildPanel extends JFrame{
 		buildCity.setBounds(15*SCALAR, 8*SCALAR, 6*SCALAR, 3*SCALAR);
 		buildDevCard.setBounds(22*SCALAR, 8*SCALAR, 6*SCALAR, 3*SCALAR);
 		
+		roadHandler roadFunction = new roadHandler();
+		buildRoad.addActionListener(roadFunction);
+		settlementHandler settlementFunction = new settlementHandler();
+		buildSettlement.addActionListener(settlementFunction);
+		cityHandler cityFunction = new cityHandler();
+		buildCity.addActionListener(cityFunction);
+		devHandler devFunction = new devHandler();
+		buildDevCard.addActionListener(devFunction);
+		
+	}
+	
+	/**
+	 * Update the icons of the buttons
+	 */
+	public void initializeButtonIcons() {
 		//Road image
 		Icon road = new ImageIcon(getClass().getResource("Road.png"));
 		Icon no = new ImageIcon(getClass().getResource("No_Sign.png"));
-		if(currentPlayer.getBrick() > 0 && currentPlayer.getWood() > 0) {
+		if(currentPlayer.canBuildRoad()) {
 			buildRoad.setIcon(road);
 		}
 		else{
@@ -58,8 +74,7 @@ public class BuildPanel extends JFrame{
 		}
 		
 		//TODO: Settlement image
-		if(currentPlayer.getBrick() > 0 && currentPlayer.getWood() > 0
-				&& currentPlayer.getWheat() > 0 && currentPlayer.getSheep() > 0) {
+		if(currentPlayer.canBuildSettlement()) {
 			
 		}
 		else {
@@ -67,7 +82,7 @@ public class BuildPanel extends JFrame{
 		}
 		
 		//TODO: City image
-		if(currentPlayer.getWheat() > 1 && currentPlayer.getOre() > 2) {
+		if(currentPlayer.canBuildCity()) {
 			
 		}
 		else {
@@ -75,11 +90,62 @@ public class BuildPanel extends JFrame{
 		}
 		
 		//TODO: Dev Card Image
-		if(currentPlayer.getWheat() > 0 && currentPlayer.getSheep() > 0 && currentPlayer.getOre() > 0) {
+		if(currentPlayer.canBuildDevCard()) {
 			
 		}
 		else {
 			buildDevCard.setIcon(no);
+		}
+	}
+	
+	/**
+	 * Button methods
+	 */
+	
+	private class roadHandler implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			if(currentPlayer.canBuildRoad()) {
+				currentPlayer.giveWood(-1);
+				currentPlayer.giveBrick(-1);
+				dispose();
+			}
+		}
+	}
+	
+	private class settlementHandler implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			if(currentPlayer.canBuildSettlement()) {
+				currentPlayer.giveWood(-1);
+				currentPlayer.giveBrick(-1);
+				currentPlayer.giveWheat(-1);
+				currentPlayer.giveSheep(-1);
+				dispose();
+			}
+		}
+	}
+	
+	private class cityHandler implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			if(currentPlayer.canBuildCity()) {
+				currentPlayer.giveWheat(-2);
+				currentPlayer.giveOre(-3);
+				dispose();
+			}
+		}
+	}
+	
+	private class devHandler implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			if(currentPlayer.canBuildDevCard()) {
+				currentPlayer.giveWheat(-1);
+				currentPlayer.giveSheep(-1);
+				currentPlayer.giveOre(-1);
+				dispose();
+			}
 		}
 	}
 

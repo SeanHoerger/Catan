@@ -5,7 +5,6 @@ import javax.swing.*;
 
 /**
  * This class needs the following arguments at the minimum:
- * 		JFrame window  		- Where the button will pop up
  * 		int SCALAR			- Parameters for the button
  * 		Player one
  * 		Player two
@@ -16,7 +15,6 @@ import javax.swing.*;
  *
  */
 public class TurnTracker {
-	private JFrame window;		//Which window the button will show up in
 	private int playerTurn = 1; //Int that ranges from 1 - the number of players and keeps track of the turns
 	private int numPlayers;		//The number of players, starting at 1
 	private Player player1;
