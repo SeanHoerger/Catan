@@ -120,33 +120,32 @@ public class Hand {
 	// displays the cards in the hand
 	public void display(Graphics g) {
 	
-		int x = BoardDisplay.XDIM - 18*BoardDisplay.SCALAR;
-		int y = 13*BoardDisplay.SCALAR;
+		int x = BoardDisplay.XDIM - 26*BoardDisplay.SCALAR;
+		int y = 3*BoardDisplay.SCALAR;
 		
 		// dimension of card + boarder
-		int xAdjust = 6*BoardDisplay.SCALAR; 
-		int yAdjust = 8*BoardDisplay.SCALAR;
+		int xAdjust = 4*BoardDisplay.SCALAR + BoardDisplay.SCALAR / 2;
 		
 		//wood
-		this.drawCard(g, x + 1*xAdjust, y, this.getWood(), new Color(0, 100 , 0));
+		this.drawCard(g, x , y, this.getWood(), new Color(0, 100 , 0));
 		
 		//brick
-		this.drawCard(g, x + 2*xAdjust, y, this.getBrick(), new Color(183, 90, 0));
+		this.drawCard(g, x + 1*xAdjust, y, this.getBrick(), new Color(183, 90, 0));
 		
 		//wheat
-		this.drawCard(g, x + 1*xAdjust, y + yAdjust, this.getWheat(), new Color(255, 234, 1));
+		this.drawCard(g, x + 2*xAdjust, y, this.getWheat(), new Color(255, 234, 1));
 		
 		//sheep
-		this.drawCard(g, x + 2*xAdjust, y + yAdjust, this.getSheep(), new Color(0, 255, 38));
+		this.drawCard(g, x + 3*xAdjust, y, this.getSheep(), new Color(0, 255, 38));
 		
 		//ore
-		this.drawCard(g, x, y + yAdjust, this.getOre(), new Color(101, 101, 165));
+		this.drawCard(g, x + 4*xAdjust, y, this.getOre(), new Color(101, 101, 165));
 	}
 	
 	private void drawCard(Graphics g, int x, int y, int n, Color cardColor) {
 		//draw card
 		g.setColor(Color.WHITE);
-		g.fillRect(x, y, (5*BoardDisplay.SCALAR), (7*BoardDisplay.SCALAR));
+		g.fillRect(x, y, (4*BoardDisplay.SCALAR), (6*BoardDisplay.SCALAR));
 		
 		if (n == 0) {
 			//g.setColor(new Color(75, 100, 75)); <-- work on gray-out later
@@ -155,20 +154,20 @@ public class Hand {
 		else {
 			g.setColor(cardColor);
 		}
-		g.fillRect(x + (int)(0.5*BoardDisplay.SCALAR), y + (int)(0.5*BoardDisplay.SCALAR), 4*BoardDisplay.SCALAR, 6*BoardDisplay.SCALAR);
+		g.fillRect(x + (int)(0.5*BoardDisplay.SCALAR), y + (int)(0.5*BoardDisplay.SCALAR), 3*BoardDisplay.SCALAR, 5*BoardDisplay.SCALAR);
 		g.setColor(Color.BLACK);
-		g.drawRect(x, y, (5*BoardDisplay.SCALAR), (7*BoardDisplay.SCALAR));
-		g.drawRect(x + (int)(0.5*BoardDisplay.SCALAR), y + (int)(0.5*BoardDisplay.SCALAR), 4*BoardDisplay.SCALAR, 6*BoardDisplay.SCALAR);
+		g.drawRect(x, y, (4*BoardDisplay.SCALAR), (6*BoardDisplay.SCALAR));
+		g.drawRect(x + (int)(0.5*BoardDisplay.SCALAR), y + (int)(0.5*BoardDisplay.SCALAR), 3*BoardDisplay.SCALAR, 5*BoardDisplay.SCALAR);
 		
 		//draw number
 		g.setColor(Color.WHITE);
 		if (n < 10){
-			g.setFont(new Font (Font.SANS_SERIF, Font.BOLD, (int)(5*BoardDisplay.SCALAR)));	
-			g.drawString("" + n, x + (int)(0.9*BoardDisplay.SCALAR), y+(int)(5.5*BoardDisplay.SCALAR));
+			g.setFont(new Font (Font.SANS_SERIF, Font.BOLD, (int)(4*BoardDisplay.SCALAR)));	
+			g.drawString("" + n, x + (int)(0.9*BoardDisplay.SCALAR), y+(int)(4.5*BoardDisplay.SCALAR));
 		}
 		else {
 			g.setFont(new Font (Font.SANS_SERIF, Font.BOLD, (int)(2.5*BoardDisplay.SCALAR)));
-			g.drawString("" + n, x + (int)(0.9*BoardDisplay.SCALAR), y+(int)(4.5*BoardDisplay.SCALAR));
+			g.drawString("" + n, x + (int)(0.5*BoardDisplay.SCALAR), y+(int)(4*BoardDisplay.SCALAR));
 		}
 	}
 }

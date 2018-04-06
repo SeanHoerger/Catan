@@ -27,7 +27,7 @@ public class BoardDisplay extends JComponent{
 	public static JFrame window = new JFrame("Stags of Catan");
 	public static RandomGenerator dice = new RandomGenerator(6,6);
 	public static TurnTracker turns = new TurnTracker();
-	public static JButton buildMenu = new JButton("Build");
+	public static JButton buildMenu = new JButton("Build (B)");
 	
 	public static KeyboardReader keyboardInput = new KeyboardReader();
 	
@@ -64,13 +64,15 @@ public class BoardDisplay extends JComponent{
 		reshuffleBoardButton();
 		setPlayerNames();
 		startGame(player1, player2, player3, player4);
-		System.out.println("Keylistener Added");
 		window.addKeyListener(keyboardInput);
+		player2.giveBrick(1);
+		player2.giveWheat(1);
+		player2.giveSheep(1);
+		player2.giveWood(1);
+		updatePlayerPanel();
 		while(gameOver == 0) {
-			window.requestFocus();
-			if(keyboardInput.buildPressed()) {
-				System.out.println("Pressed");
-			}
+			window.requestFocusInWindow();
+			checkPlayerInput();
 		}
 	}
 
@@ -94,7 +96,7 @@ public class BoardDisplay extends JComponent{
 		}
 		
 		// card test
-		Hand testHand = new Hand(8,0,2,3,12);
+		Hand testHand = new Hand(0,99,2,3,12);
 		Player testPlayer = new Player(1, testHand);
 		testPlayer.displayHand(g);
 		
@@ -164,13 +166,13 @@ public class BoardDisplay extends JComponent{
 			if(hasRolled == true) {
 				turns.cycleTurn();
 				buildMenu.setVisible(false);
-				rollDice.setText("Roll Dice");
+				rollDice.setText("Roll Dice (R)");
 				window.repaint();
 				hasRolled = false;
 				JOptionPane.showMessageDialog(window, String.format("%s", turns.returnCurrentPlayer().getName() + "'s Turn"));
 			}
 			else if(hasRolled == false) {
-				rollDice.setText("End Turn");
+				rollDice.setText("End Turn (D)");
 				buildMenu.setVisible(true);
 				window.repaint();
 				hasRolled = true;
@@ -183,6 +185,7 @@ public class BoardDisplay extends JComponent{
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			BuildPanel buildPanel = new BuildPanel(SCALAR, turns.returnCurrentPlayer());
+			buildPanel.setFocusable(false);
 			buildPanel.setVisible(true);
 		}
 	}
@@ -190,7 +193,7 @@ public class BoardDisplay extends JComponent{
 	
 	public static void startGame(Player player1, Player player2, Player player3, Player player4) {
 		hasRolled = false;
-		rollDice.setText("Roll Dice");
+		rollDice.setText("Roll Dice (R)");
 		window.remove(startGame);
 		window.remove(reshuffleBoard);
 		window.add(rollDice);
@@ -217,10 +220,10 @@ public class BoardDisplay extends JComponent{
 	 * Updates the player panel using the current names and hand totals
 	 */
 	public static void updatePlayerPanel() {
-		player1Name.setText(player1.getName() + ": Hand Size = " + player1.getTotal());
-		player2Name.setText(player2.getName() + ": Hand Size = " + player2.getTotal());
-		player3Name.setText(player3.getName() + ": Hand Size = " + player3.getTotal());
-		player4Name.setText(player4.getName() + ": Hand Size = " + player4.getTotal());
+		player1Name.setText(player1.getName() + ": Hand Size = " + player1.getTotal() + " Dev Cards = " + player1.numDevCards());
+		player2Name.setText(player2.getName() + ": Hand Size = " + player2.getTotal() + " Dev Cards = " + player2.numDevCards());
+		player3Name.setText(player3.getName() + ": Hand Size = " + player3.getTotal() + " Dev Cards = " + player3.numDevCards());
+		player4Name.setText(player4.getName() + ": Hand Size = " + player4.getTotal() + " Dev Cards = " + player4.numDevCards());
 		window.repaint();
 	}
 		
@@ -230,41 +233,61 @@ public class BoardDisplay extends JComponent{
 	 */
 	public static void setPlayerNames() {
 		window.add(playerPanel);
-		playerPanel.add(player1Name);
+		playerPanel.add(player1Name);	
 		playerPanel.add(player2Name);
 		while(hasRolled == false) {
 			try { Thread.sleep(200); } catch (InterruptedException e) {};
 		}
 		//TODO: Reenable the following line
-		//InputTextBox startingText = new InputTextBox(SCALAR); //Creates a text box read the number of players
+		InputTextBox startingText = new InputTextBox(SCALAR); //Creates a text box read the number of players
 		/**
 		 * Calls the generatePlayerName function for each player, and updates the associated JLabel
 		 */
 		//TODO: Uncomment this
-		/*
 		player1.setName(startingText.generatePlayerName(1));		
-		player1Name.setText(player1.getName() + ": Hand Size = " + player1.getTotal());
+		player1Name.setText(player1.getName() + ": Hand Size = " + player1.getTotal() + " Dev Cards = " + player1.numDevCards());
 		player2.setName(startingText.generatePlayerName(2));		
-		player2Name.setText(player2.getName() + ": Hand Size = " + player2.getTotal());
-		int panelDims = (Math.max(player1Name.getWidth(), player2Name.getWidth()));
-		playerPanel.setLocation(40*SCALAR, 3*SCALAR);
+		player2Name.setText(player2.getName() + ": Hand Size = " + player2.getTotal() + " Dev Cards = " + player2.numDevCards());
+		int panelDims = (Math.max( player1Name.getWidth() +player1Name.getText().length(), player2Name.getWidth() +player2Name.getText().length()));
 		if(startingText.getNumPlayers() > 2) {
 			playerPanel.add(player3Name);
 			player3.setName(startingText.generatePlayerName(3)); 	
-			player3Name.setText(player3.getName() + ": Hand Size = " + player3.getTotal());
-			panelDims = (Math.max(panelDims, player3Name.getWidth()));
+			player3Name.setText(player3.getName() + ": Hand Size = " + player3.getTotal() + " Dev Cards = " + player3.numDevCards());
+			panelDims = (Math.max(panelDims, player3Name.getWidth() +player3Name.getText().length()));
 		}
 		if(startingText.getNumPlayers() > 3) {
 			playerPanel.add(player4Name);
 			player4.setName(startingText.generatePlayerName(4));	
-			player4Name.setText(player4.getName() + ": Hand Size = " + player4.getTotal());
-			panelDims = (Math.max(panelDims, player4Name.getWidth()));
+			player4Name.setText(player4.getName() + ": Hand Size = " + player4.getTotal() + " Dev Cards = " + player4.numDevCards());
+			panelDims = (Math.max(panelDims, player4Name.getWidth() + player4Name.getText().length()));
 		}
 		numPlayers = startingText.getNumPlayers();	
 		playerPanel.setSize(panelDims + SCALAR, 10 * SCALAR);
+		playerPanel.setLocation(48*SCALAR - panelDims, 10*SCALAR);
 		playerPanel.setVisible(true);					
 		window.repaint();
-		*/
+		
+	}
+	
+	private static void checkPlayerInput() {
+		//Handle build hotkey input
+		if(keyboardInput.buildIsPressed()) {
+			if(buildMenu.isVisible()) {
+				buildMenu.doClick();
+			}
+		}
+		//Handle end turn hotkey input
+		if(keyboardInput.endTurnIsPressed()) {
+			if(hasRolled) {
+				rollDice.doClick();
+			}
+		}
+		//Handle roll dice hotkey input
+		if(keyboardInput.rollDiceIsPressed()) {
+			if(!hasRolled) {
+				rollDice.doClick();
+			}
+		}
 	}
 	
 

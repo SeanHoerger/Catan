@@ -23,11 +23,12 @@ public class BuildPanel extends JFrame{
 	public BuildPanel(int scalar, Player player) {
 		SCALAR = scalar;
 		currentPlayer = player;
-		setTitle("Build Panel"); //Contains the instructions
-		setSize(30 * SCALAR, 15 * SCALAR);
-		setLocation(13*SCALAR, 8*SCALAR);
+		setTitle("Build Panel (B)"); //Contains the instructions
+		setSize(21 * SCALAR, 25 * SCALAR);
+		setLocation(18*SCALAR, 4*SCALAR);
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		holder.setLayout(null);
-		label.setBounds(11*SCALAR, SCALAR, 10*SCALAR, SCALAR);
+		label.setBounds(6*SCALAR, SCALAR, 10*SCALAR, SCALAR);
 		holder.add(label);
 		initializeButtons();
 		initializeButtonIcons();
@@ -43,10 +44,15 @@ public class BuildPanel extends JFrame{
 	 * of the current player
 	 */
 	public void initializeButtons() {
-		buildRoad.setBounds(SCALAR, 8*SCALAR, 6*SCALAR, 3*SCALAR);
-		buildSettlement.setBounds(8*SCALAR, 8*SCALAR, 6*SCALAR, 3*SCALAR);
-		buildCity.setBounds(15*SCALAR, 8*SCALAR, 6*SCALAR, 3*SCALAR);
-		buildDevCard.setBounds(22*SCALAR, 8*SCALAR, 6*SCALAR, 3*SCALAR);
+		buildRoad.setBounds(5*SCALAR, 3*SCALAR, 10*SCALAR, 4*SCALAR);
+		buildRoad.setHorizontalAlignment(SwingConstants.HORIZONTAL);
+		buildSettlement.setBounds(5*SCALAR, 8*SCALAR, 10*SCALAR, 4*SCALAR);
+		buildSettlement.setHorizontalAlignment(SwingConstants.HORIZONTAL);
+		buildCity.setBounds(5*SCALAR, 13*SCALAR, 10*SCALAR, 4*SCALAR);
+		buildCity.setHorizontalAlignment(SwingConstants.HORIZONTAL);
+		buildDevCard.setBounds(5*SCALAR, 18*SCALAR, 10*SCALAR, 4*SCALAR);
+		buildDevCard.setHorizontalAlignment(SwingConstants.HORIZONTAL);
+		
 		
 		roadHandler roadFunction = new roadHandler();
 		buildRoad.addActionListener(roadFunction);
@@ -74,8 +80,9 @@ public class BuildPanel extends JFrame{
 		}
 		
 		//TODO: Settlement image
+		Icon settlement = new ImageIcon(getClass().getResource("SettlementRed.png"));
 		if(currentPlayer.canBuildSettlement()) {
-			
+			buildSettlement.setIcon(settlement);
 		}
 		else {
 			buildSettlement.setIcon(no);
@@ -108,6 +115,7 @@ public class BuildPanel extends JFrame{
 			if(currentPlayer.canBuildRoad()) {
 				currentPlayer.giveWood(-1);
 				currentPlayer.giveBrick(-1);
+				BoardDisplay.updatePlayerPanel();
 				dispose();
 			}
 		}
@@ -121,6 +129,7 @@ public class BuildPanel extends JFrame{
 				currentPlayer.giveBrick(-1);
 				currentPlayer.giveWheat(-1);
 				currentPlayer.giveSheep(-1);
+				BoardDisplay.updatePlayerPanel();
 				dispose();
 			}
 		}
@@ -132,6 +141,7 @@ public class BuildPanel extends JFrame{
 			if(currentPlayer.canBuildCity()) {
 				currentPlayer.giveWheat(-2);
 				currentPlayer.giveOre(-3);
+				BoardDisplay.updatePlayerPanel();
 				dispose();
 			}
 		}
@@ -144,6 +154,7 @@ public class BuildPanel extends JFrame{
 				currentPlayer.giveWheat(-1);
 				currentPlayer.giveSheep(-1);
 				currentPlayer.giveOre(-1);
+				BoardDisplay.updatePlayerPanel();
 				dispose();
 			}
 		}

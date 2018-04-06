@@ -92,8 +92,13 @@ public class InputTextBox extends JFrame {
 				}
 			}
 			else { //Else, it is an input determining the name of a player
-				playerName = input;
-				flag++;
+				if(input.length() > 25) {
+					label.setText("The players name can only be 25 characters long");
+				}
+				else {
+					playerName = input;
+					flag++;
+				}
 			}
 			
 		}

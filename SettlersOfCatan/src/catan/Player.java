@@ -151,6 +151,10 @@ public class Player{
 		return devCards;
 	}
 	
+	public int numDevCards() {
+		return this.indexOfLastDev();
+	}
+	
 	/**
 	 * Returns true if the player has the indicated dev card
 	 * Uses a flag to signal the end of the while loop
