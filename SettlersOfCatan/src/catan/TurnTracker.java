@@ -57,7 +57,7 @@ public class TurnTracker {
 	 * Function to cycle the player turns
 	 */
 	public void cycleTurn() {
-		if(playerTurn < numPlayers) {
+		if(playerTurn <= numPlayers) {
 			playerTurn++;
 		}
 		else {

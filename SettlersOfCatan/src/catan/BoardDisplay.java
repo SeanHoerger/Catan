@@ -65,10 +65,26 @@ public class BoardDisplay extends JComponent{
 		setPlayerNames();
 		startGame(player1, player2, player3, player4);
 		window.addKeyListener(keyboardInput);
+		player1.giveBrick(1);
+		player1.giveWheat(2);
+		player1.giveSheep(1);
+		player1.giveWood(1);
+		player1.giveOre(3);
 		player2.giveBrick(1);
-		player2.giveWheat(1);
+		player2.giveWheat(2);
 		player2.giveSheep(1);
 		player2.giveWood(1);
+		player2.giveOre(3);
+		player3.giveBrick(1);
+		player3.giveWheat(2);
+		player3.giveSheep(1);
+		player3.giveWood(1);
+		player3.giveOre(3);
+		player4.giveBrick(1);
+		player4.giveWheat(2);
+		player4.giveSheep(1);
+		player4.giveWood(1);
+		player4.giveOre(3);
 		updatePlayerPanel();
 		while(gameOver == 0) {
 			window.requestFocusInWindow();

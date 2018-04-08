@@ -69,9 +69,30 @@ public class BuildPanel extends JFrame{
 	 * Update the icons of the buttons
 	 */
 	public void initializeButtonIcons() {
-		//Road image
-		Icon road = new ImageIcon(getClass().getResource("Road.png"));
+		//Set Icons based on color
 		Icon no = new ImageIcon(getClass().getResource("No_Sign.png"));
+		//Player 1 = blue
+		Icon road = new ImageIcon(getClass().getResource("RoadBlue.png"));
+		Icon settlement = new ImageIcon(getClass().getResource("SettlementBlue.png"));
+		Icon city = new ImageIcon(getClass().getResource("CityBlue.png"));
+		//Player 2 = white
+		if(currentPlayer.getNumber() == 2) {
+			road = new ImageIcon(getClass().getResource("RoadWhite.png"));
+			settlement = new ImageIcon(getClass().getResource("SettlementWhite.png"));
+			city = new ImageIcon(getClass().getResource("CityWhite.png"));
+		}
+		//Player 3 = orange
+		if(currentPlayer.getNumber() == 3) {
+			road = new ImageIcon(getClass().getResource("RoadOrange.png"));
+			settlement = new ImageIcon(getClass().getResource("SettlementOrange.png"));
+			city = new ImageIcon(getClass().getResource("CityOrange.png"));
+		}
+		if(currentPlayer.getNumber() == 4){
+			road = new ImageIcon(getClass().getResource("RoadRed.png"));
+			settlement = new ImageIcon(getClass().getResource("SettlementRed.png"));
+			city = new ImageIcon(getClass().getResource("CityRed.png"));
+		}
+		
 		if(currentPlayer.canBuildRoad()) {
 			buildRoad.setIcon(road);
 		}
@@ -79,8 +100,7 @@ public class BuildPanel extends JFrame{
 			buildRoad.setIcon(no);
 		}
 		
-		//TODO: Settlement image
-		Icon settlement = new ImageIcon(getClass().getResource("SettlementRed.png"));
+		//Set Settlement image
 		if(currentPlayer.canBuildSettlement()) {
 			buildSettlement.setIcon(settlement);
 		}
@@ -88,9 +108,9 @@ public class BuildPanel extends JFrame{
 			buildSettlement.setIcon(no);
 		}
 		
-		//TODO: City image
+		//Set City image
 		if(currentPlayer.canBuildCity()) {
-			
+			buildCity.setIcon(city);
 		}
 		else {
 			buildCity.setIcon(no);

@@ -93,6 +93,11 @@ public class Player{
 		return playerName;
 	}
 
+	public int getNumber() {
+		return playerNum;
+	}
+	
+	
 	/**
 	 * Setters
 	 */
