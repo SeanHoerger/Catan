@@ -53,6 +53,7 @@ public class BoardDisplay extends JComponent{
 	private static final BoardData boardData = new BoardData();
 
 	public static void main(String[] args) {
+		turns.addPlayer(player1);
 		window.add(new BoardDisplay());
 		window.pack();
 		window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -111,10 +112,7 @@ public class BoardDisplay extends JComponent{
 			boardData.getTileAt(i).drawTile(g);
 		}
 		
-		// card test
-		Hand testHand = new Hand(0,99,2,3,12);
-		Player testPlayer = new Player(1, testHand);
-		testPlayer.displayHand(g);
+		turns.returnCurrentPlayer().displayHand(g);
 		
 		// road test
 		Road r1 = new Road(XSTART, YSTART, XSTART+3*SCALAR, YSTART+2*SCALAR, Color.RED);
@@ -221,7 +219,6 @@ public class BoardDisplay extends JComponent{
 		buildMenu.setBounds(44 * SCALAR, 23 * SCALAR, 7 * SCALAR, 3*SCALAR); //Sets the size and location of the button. (x, y, xdim, ydim)
 		buildMenuHandler buildHandler = new buildMenuHandler();
 		buildMenu.addActionListener(buildHandler);
-		turns.addPlayer(player1);
 		turns.addPlayer(player2);
 		if(numPlayers > 2) {
 			turns.addPlayer(player3);
@@ -254,12 +251,10 @@ public class BoardDisplay extends JComponent{
 		while(hasRolled == false) {
 			try { Thread.sleep(200); } catch (InterruptedException e) {};
 		}
-		//TODO: Reenable the following line
 		InputTextBox startingText = new InputTextBox(SCALAR); //Creates a text box read the number of players
 		/**
 		 * Calls the generatePlayerName function for each player, and updates the associated JLabel
 		 */
-		//TODO: Uncomment this
 		player1.setName(startingText.generatePlayerName(1));		
 		player1Name.setText(player1.getName() + ": Hand Size = " + player1.getTotal() + " Dev Cards = " + player1.numDevCards());
 		player2.setName(startingText.generatePlayerName(2));		
