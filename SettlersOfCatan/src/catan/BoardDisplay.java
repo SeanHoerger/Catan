@@ -246,11 +246,14 @@ public class BoardDisplay extends JComponent{
 	 */
 	public static void setPlayerNames() {
 		window.add(playerPanel);
+		//The game requires two players at least, so initialize the player panel with 2 players
 		playerPanel.add(player1Name);	
 		playerPanel.add(player2Name);
+		//Wait until the player clicks on start game
 		while(hasRolled == false) {
 			try { Thread.sleep(200); } catch (InterruptedException e) {};
 		}
+		
 		InputTextBox startingText = new InputTextBox(SCALAR); //Creates a text box read the number of players
 		/**
 		 * Calls the generatePlayerName function for each player, and updates the associated JLabel

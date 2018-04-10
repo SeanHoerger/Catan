@@ -57,7 +57,7 @@ public class TurnTracker {
 	 * Function to cycle the player turns
 	 */
 	public void cycleTurn() {
-		if(playerTurn <= numPlayers) {
+		if(playerTurn < numPlayers) {
 			playerTurn++;
 		}
 		else {
@@ -98,15 +98,14 @@ public class TurnTracker {
 			if(this.numPlayers == 0) {
 				this.player1 = player;
 			}
-			if(this.numPlayers == 1) {
+			else if(this.numPlayers == 1) {
 				this.player2 = player;
 			}
-			if(this.numPlayers == 2) {
+			else if(this.numPlayers == 2) {
 				this.player3 = player;
 			}
-			if(this.numPlayers == 3) {
+			else if(this.numPlayers == 3) {
 				this.player4 = player;
-				this.numPlayers--;
 			}
 			this.numPlayers++;
 		}
