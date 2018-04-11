@@ -9,7 +9,8 @@ import java.util.Random;
 public class BoardData{
 	private final int NUM_TILES = 19; // the number of tiles in the game
 	private int[] numbers = {2,3,3,4,4,5,5,6,6,8,8,9,9,10,10,11,11,12}; // the number values in the game
-	private boolean[][] boardMatrix; //adjacency matrix that shows edges 
+	private boolean[][] boardMatrix; //adjacency matrix that shows edges
+	private Vertex [] vertexArray;
 	private Player player1;
 	private Player player2;
 	private Player player3;
@@ -162,9 +163,11 @@ public class BoardData{
 			xPos = xPos+6*BoardDisplay.SCALAR;
 			i++;
 		}
-		
-		
 	}
+		
+	//public void vertexArrayGenerator(int x, int y, Player owner, int number, int houseType) {
+		//	vertexArray[1] = ()
+	//}
 	void addEdge(int i, int j) {
         boardMatrix[i][j] = true;
     }
@@ -181,7 +184,7 @@ public class BoardData{
    The board is numbered same as http://www.graphgraph.com/page/2/ see the second graph on the page
    Grant also has a picture of this saved on phone in case website goes down 
    */
-	private void boardGenerator( ) {
+	private void adjacencyGenerator( ) {
 		this.addEdge(1,6);
 		this.addEdge (1,2);
 		this.addEdge (1,24);
