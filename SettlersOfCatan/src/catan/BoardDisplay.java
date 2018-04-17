@@ -141,7 +141,7 @@ public class BoardDisplay extends JComponent{
 		turns.returnCurrentPlayer().displayHand(g);
 		
 		// road test
-		Vertex v1 = new Vertex(XSTART, YSTART, 0, 0);
+		/*Vertex v1 = new Vertex(XSTART, YSTART, 0, 0);
 		Vertex v2 = new Vertex(XSTART+3*SCALAR, YSTART+2*SCALAR, 0, 0);
 		Vertex v3 = new Vertex(XSTART-3*SCALAR, YSTART+2*SCALAR, 0, 0);
 		Vertex v4 = new Vertex(XSTART+3*SCALAR, YSTART+5*SCALAR, 0, 0);
@@ -159,7 +159,10 @@ public class BoardDisplay extends JComponent{
 		// city test
 		City c1 = new City(XSTART + 3*SCALAR, YSTART + 2*SCALAR, player2);
 		c1.draw(g);
+		*/
 		
+		// test vertexes
+		boardData.getVertexArray().test(g);
 	}
 	
 	/**

@@ -2,39 +2,46 @@ package catan;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
 
 public class Vertex extends Location {
 	/**
 	 * Grant wrote this so.... yeah
 	 */
-	private int number;
 	private int houseType; // 0 = unsettled, 1 = settlement, 2 = city
 	public static JButton vertexButton = new JButton();
 	private boolean flag = false; //Flag to determine if the vertex was clicked
+	ArrayList<Tile> neighborTiles;
 	
 	//constructor for Vertices
-	public Vertex(int x, int y, int number, int houseType) { 
+	public Vertex(int x, int y, int houseType) { 
 		super(x,y);
-		this.number = number;
 		this.houseType = houseType;
 		vertexButton.setBounds(getX()-BoardDisplay.SCALAR/2, getY()-BoardDisplay.SCALAR/2, 
 				BoardDisplay.SCALAR, BoardDisplay.SCALAR);
 		vertexHandler vertexFunction = new vertexHandler();
 		vertexButton.addActionListener(vertexFunction);
+		neighborTiles = new ArrayList<Tile>();
+	}
+	
+	public Vertex() {
+		super(0,0);
+		houseType = 0;
+		
+		vertexButton.setBounds(getX()-BoardDisplay.SCALAR/2, getY()-BoardDisplay.SCALAR/2, 
+				BoardDisplay.SCALAR, BoardDisplay.SCALAR);
+		vertexHandler vertexFunction = new vertexHandler();
+		vertexButton.addActionListener(vertexFunction);
+		neighborTiles = new ArrayList<Tile>();
 	}
 	
 	
 	// getters and settlers
 	// The parent class already contains a getX() and getY() function
-	public int getNumber() {
-		return number;
-	}
 	public int getHouseType() {
 		return houseType;
-	}
-	public void setNumber(int number) {
-		this.number = number;
 	}
 	public void setHouseType(int houseType) {
 		this.houseType = houseType;
@@ -46,6 +53,10 @@ public class Vertex extends Location {
 	
 	public void resetClicked() {
 		flag = false;
+	}
+	
+	public void addNeighbor(Tile neighbor) {
+		neighborTiles.add(neighbor);
 	}
 
 	private class vertexHandler implements ActionListener{

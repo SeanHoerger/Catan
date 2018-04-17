@@ -10,7 +10,7 @@ public class BoardData{
 	private final int NUM_TILES = 19; // the number of tiles in the game
 	private int[] numbers = {2,3,3,4,4,5,5,6,6,8,8,9,9,10,10,11,11,12}; // the number values in the game
 	private boolean[][] boardMatrix; //adjacency matrix that shows edges
-	private Vertex [] vertexArray;
+	private VertexArray vertexArray;
 	private Player player1;
 	private Player player2;
 	private Player player3;
@@ -56,11 +56,18 @@ public class BoardData{
 		this.shuffleTiles(); // randomizes the order of the tiles
 		this.setLocations(); // sets the location of the tiles on the board
 		this.shuffleNumbers(); // randomizes and assigns the numbers to the tiles
+		
+		vertexArray = new VertexArray();
+		this.addVertexNeighbors();
 	}
-	
+
 	// returns the array of tiles
 	public Tile[] getTiles() {
 		return this.tiles;
+	}
+	
+	public VertexArray getVertexArray() {
+		return this.vertexArray;
 	}
 	
 	// returns the tile at index i in the array of tiles
@@ -164,10 +171,7 @@ public class BoardData{
 			i++;
 		}
 	}
-		
-	//public void vertexArrayGenerator(int x, int y, Player owner, int number, int houseType) {
-		//	vertexArray[1] = ()
-	//}
+	
 	void addEdge(int i, int j) {
         boardMatrix[i][j] = true;
     }
@@ -329,5 +333,24 @@ public class BoardData{
 		this.addEdge (53,23);
 		this.addEdge (54,53);
 		this.addEdge (54,25);		
+	}
+	
+	private void addVertexNeighbors() {
+		// TODO Auto-generated method stub	
+	}
+	
+	private void addNeighbors(int i, int n1) {
+		vertexArray.addNeighbor(i, tiles[n1]);
+	}
+	
+	private void addNeighbors(int i, int n1, int n2) {
+		vertexArray.addNeighbor(i, tiles[n1]);
+		vertexArray.addNeighbor(i, tiles[n2]);
+	}
+	
+	private void addNeighbors(int i, int n1, int n2, int n3) {
+		vertexArray.addNeighbor(i, tiles[n1]);
+		vertexArray.addNeighbor(i, tiles[n2]);
+		vertexArray.addNeighbor(i, tiles[n3]);
 	}
 }
