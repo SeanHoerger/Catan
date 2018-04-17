@@ -1,5 +1,13 @@
 package catan;
 
+import java.awt.*;
+
+
+
+
+import java.awt.event.*;
+import javax.swing.*;
+
 public class Vertex extends Location {
 	/**
 	 * Grant wrote this so.... yeah
@@ -7,6 +15,8 @@ public class Vertex extends Location {
 	private Player owner;
 	private int number;
 	private int houseType; // 0 = unsettled, 1 = settlement, 2 = city
+	public static JButton vertexButton = new JButton();
+	public static final int SCALAR = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 55); // <-- magic number: 55
 	
 	//constructor for Vertices
 	public Vertex(int x, int y, Player owner, int number, int houseType) { 
@@ -14,6 +24,7 @@ public class Vertex extends Location {
 		this.owner = owner;
 		this.number = number;
 		this.houseType = houseType;
+		vertexButton.setBounds(getX(), getY(), SCALAR, SCALAR);
 	}
 	
 	
@@ -38,6 +49,12 @@ public class Vertex extends Location {
 		this.houseType = houseType;
 	}
 
+	private class vertexHandler implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent Event) {
+			//Functionality
+		}
+	}
 	
 	
 	// 

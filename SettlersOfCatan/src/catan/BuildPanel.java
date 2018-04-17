@@ -24,11 +24,11 @@ public class BuildPanel extends JFrame{
 	public BuildPanel(int scalar) {
 		SCALAR = scalar;
 		setTitle("Build Panel"); //Contains the instructions
-		setSize(21 * SCALAR, 25 * SCALAR);
-		setLocation(18*SCALAR, 2*SCALAR);
+		setSize(21 * SCALAR, 24 * SCALAR);
+		setLocation(31*SCALAR, 8*SCALAR);
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		holder.setLayout(null);
-		label.setBounds(6*SCALAR, SCALAR, 10*SCALAR, SCALAR);
+		label.setBounds(6*SCALAR, 0, 10*SCALAR, SCALAR);
 		holder.add(label);
 		holder.add(buildRoad);
 		holder.add(buildSettlement);
@@ -49,15 +49,15 @@ public class BuildPanel extends JFrame{
 	 * of the current player
 	 */
 	public void initializeButtons() {
-		buildRoad.setBounds(5*SCALAR, 3*SCALAR, 10*SCALAR, 3*SCALAR);
+		buildRoad.setBounds(5*SCALAR, 2*SCALAR, 10*SCALAR, 3*SCALAR);
 		buildRoad.setHorizontalAlignment(SwingConstants.HORIZONTAL);
-		buildSettlement.setBounds(5*SCALAR, 7*SCALAR, 10*SCALAR, 3*SCALAR);
+		buildSettlement.setBounds(5*SCALAR, 6*SCALAR, 10*SCALAR, 3*SCALAR);
 		buildSettlement.setHorizontalAlignment(SwingConstants.HORIZONTAL);
-		buildCity.setBounds(5*SCALAR, 11*SCALAR, 10*SCALAR, 3*SCALAR);
+		buildCity.setBounds(5*SCALAR, 10*SCALAR, 10*SCALAR, 3*SCALAR);
 		buildCity.setHorizontalAlignment(SwingConstants.HORIZONTAL);
-		buildDevCard.setBounds(5*SCALAR, 15*SCALAR, 10*SCALAR, 3*SCALAR);
+		buildDevCard.setBounds(5*SCALAR, 14*SCALAR, 10*SCALAR, 3*SCALAR);
 		buildDevCard.setHorizontalAlignment(SwingConstants.HORIZONTAL);
-		closeWindow.setBounds(5*SCALAR, 19*SCALAR, 10*SCALAR, 3*SCALAR);
+		closeWindow.setBounds(5*SCALAR, 18*SCALAR, 10*SCALAR, 3*SCALAR);
 		closeWindow.setHorizontalAlignment(SwingConstants.HORIZONTAL);
 		
 		roadHandler roadFunction = new roadHandler();

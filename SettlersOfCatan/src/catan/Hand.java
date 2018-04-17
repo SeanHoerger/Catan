@@ -121,7 +121,7 @@ public class Hand {
 	public void display(Graphics g) {
 	
 		int x = BoardDisplay.XDIM - 26*BoardDisplay.SCALAR;
-		int y = 3*BoardDisplay.SCALAR;
+		int y = BoardDisplay.SCALAR;
 		
 		// dimension of card + boarder
 		int xAdjust = 4*BoardDisplay.SCALAR + BoardDisplay.SCALAR / 2;
