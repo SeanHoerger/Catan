@@ -1,10 +1,6 @@
 package catan;
 
 import java.awt.*;
-
-
-
-
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -12,8 +8,7 @@ import javax.swing.*;
 
 public class BoardDisplay extends JComponent{
 
-	public static boolean hasRolled = false; //flag to register when the Start! button has been pressed. Recycled to flag if the dice have been rolled this turn
-	public static boolean hasPressedBuild = false;
+	
 	public static final int XDIM = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	public static final int YDIM = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	public static final int SCALAR = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 55); // <-- magic number: 55
@@ -21,17 +16,20 @@ public class BoardDisplay extends JComponent{
 	public static final int YSTART = (int)(1.5*SCALAR);
 	//public static final int YSTART = SCALAR;
 	public static int numPlayers = 0;
-	public static int gameOver = 0;
+	
+	public static boolean gameOver = false;
+	public static boolean hasRolled = false; //flag to register when the Start! button has been pressed. Recycled to flag if the dice have been rolled this turn
+	public static boolean hasPressedBuild = false;
 	
 	public static DevCards devDeck = new DevCards();
 	
 	public static JButton startGame = new JButton("Start Game");
 	public static JButton reshuffleBoard = new JButton("Reshuffle Board");
 	public static JButton rollDice = new JButton();
+	public static JButton buildMenu = new JButton("Build (B)");
 	public static JFrame window = new JFrame("Stags of Catan");
 	public static RandomGenerator dice = new RandomGenerator(6,6);
 	public static TurnTracker turns = new TurnTracker();
-	public static JButton buildMenu = new JButton("Build (B)");
 	
 	public static KeyboardReader keyboardInput = new KeyboardReader();
 	public static BuildPanel buildPanel = new BuildPanel(SCALAR);
@@ -58,6 +56,10 @@ public class BoardDisplay extends JComponent{
 	private static final BoardData boardData = new BoardData();
 
 
+	/**
+	 * Main Method that controls the game
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		turns.addPlayer(player1);
 		window.add(new BoardDisplay());
@@ -93,7 +95,7 @@ public class BoardDisplay extends JComponent{
 		player4.giveWood(1);
 		player4.giveOre(3);
 		updatePlayerPanel();
-		while(gameOver == 0) {
+		while(!gameOver) {
 			window.requestFocusInWindow();
 			checkPlayerInput();
 			if(getCurrentPlayer().getBuilding() != 0) {
