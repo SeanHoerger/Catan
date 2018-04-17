@@ -96,8 +96,7 @@ public class BoardDisplay extends JComponent{
 			window.requestFocusInWindow();
 			checkPlayerInput();
 			if(getCurrentPlayer().getBuilding() != 0) {
-				try { Thread.sleep(200); } catch (InterruptedException e) {};
-				System.out.println(getCurrentPlayer().getBuilding());
+				//Add building functionality here
 			}
 		}
 	}

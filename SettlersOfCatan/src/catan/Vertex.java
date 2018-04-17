@@ -18,6 +18,7 @@ public class Vertex extends Location {
 	
 	
 	// getters and settlers
+	// The parent class already contains a getX() and getY() function
 	public Player getOwner() {
 		return owner;
 	}
@@ -36,6 +37,7 @@ public class Vertex extends Location {
 	public void setHouseType(int houseType) {
 		this.houseType = houseType;
 	}
+
 	
 	
 	// 
