@@ -35,8 +35,8 @@ public class BuildPanel extends JFrame{
 		holder.add(buildCity);
 		holder.add(buildDevCard);
 		holder.add(closeWindow);
-		add(holder);
 		setFocusable(false);
+		add(holder);
 	}
 	
 	public void updatePlayer(Player player) {
@@ -196,8 +196,9 @@ public class BuildPanel extends JFrame{
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			currentPlayer.setBuilding(0);
-			BoardDisplay.buildMenu.doClick();
-			dispose();
+			BoardDisplay.buildPanel.setVisible(false);
+			BoardDisplay.hasPressedBuild = false;
+			BoardDisplay.buildMenu.setText("Build (B)");
 		}
 	}
 

@@ -33,7 +33,7 @@ public class BoardDisplay extends JComponent{
 	public static JButton buildMenu = new JButton("Build (B)");
 	
 	public static KeyboardReader keyboardInput = new KeyboardReader();
-	private static BuildPanel buildPanel = new BuildPanel(SCALAR);
+	public static BuildPanel buildPanel = new BuildPanel(SCALAR);
 	
 	/**
 	 * JLabels control the text that indicates the player names and hand sizes
@@ -231,9 +231,7 @@ public class BoardDisplay extends JComponent{
 			}
 			else {
 				buildMenu.setText("Build (B)");
-				if(getCurrentPlayer().getBuilding() == 0) {
-				}
-				else if(getCurrentPlayer().getBuilding() == 1) {
+				if(getCurrentPlayer().getBuilding() == 1) {
 					getCurrentPlayer().giveBrick(1);
 					getCurrentPlayer().giveWood(1);
 				}
@@ -249,6 +247,7 @@ public class BoardDisplay extends JComponent{
 				}
 				getCurrentPlayer().setBuilding(0);
 				updatePlayerPanel();
+				buildPanel.setVisible(false);
 				hasPressedBuild = false;
 			}
 		}
