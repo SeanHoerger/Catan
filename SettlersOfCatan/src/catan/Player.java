@@ -10,9 +10,9 @@ import java.util.Random;
  * 			Hand
  * 			Dev Cards
  * TODO:
- * 			Settlements
- * 			Cities
- * 			Roads
+ * 			Settlements   5
+ * 			Cities        4
+ * 			Roads		 15
  * @author andro
  *
  */
@@ -27,8 +27,10 @@ public class Player{
 	private Hand hand;
 	private int[] devCards = new int[25];
 	private String playerName;
-	private int building = 0; //Keeps track if the player is buildling. 0 = no, 1 = road, 2 = settlement, 3 = city
-
+	private int building = 0; //Keeps track if the player is building. 0 = no, 1 = road, 2 = settlement, 3 = city
+	private Road[] roadList;
+	
+	
 	/**
 	 * Constructors
 	 */
@@ -102,6 +104,15 @@ public class Player{
 		return building;
 	}
 	
+	public Road[] getRoads() {
+		return roadList;
+	}
+	
+	// Used to keep track of the current number of roads and ensure that the number is less than 15
+	public int getNumRoads() {
+		return roadList.length;
+	}
+	
 	/**
 	 * Setters
 	 */
@@ -132,6 +143,10 @@ public class Player{
 	
 	public void setBuilding(int type) {
 		building = type;
+	}
+	
+	public void buildRoad(Vertex A, Vertex B) {
+		roadList[roadList.length] = new Road(A,B, playerNum);
 	}
 
 	/**

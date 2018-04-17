@@ -1,10 +1,6 @@
 package catan;
 
 import java.awt.*;
-
-
-
-
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -17,6 +13,7 @@ public class Vertex extends Location {
 	private int houseType; // 0 = unsettled, 1 = settlement, 2 = city
 	public static JButton vertexButton = new JButton();
 	public static final int SCALAR = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 55); // <-- magic number: 55
+	private boolean flag = false; //Flag to determine if the vertex was clicked
 	
 	//constructor for Vertices
 	public Vertex(int x, int y, Player owner, int number, int houseType) { 
@@ -24,7 +21,9 @@ public class Vertex extends Location {
 		this.owner = owner;
 		this.number = number;
 		this.houseType = houseType;
-		vertexButton.setBounds(getX(), getY(), SCALAR, SCALAR);
+		vertexButton.setBounds(getX()-SCALAR/2, getY()-SCALAR/2, SCALAR, SCALAR);
+		vertexHandler vertexFunction = new vertexHandler();
+		vertexButton.addActionListener(vertexFunction);
 	}
 	
 	
@@ -48,14 +47,21 @@ public class Vertex extends Location {
 	public void setHouseType(int houseType) {
 		this.houseType = houseType;
 	}
+	
+	public boolean isClicked() {
+		return flag;
+	}
+	
+	public void resetClicked() {
+		flag = false;
+	}
 
 	private class vertexHandler implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent Event) {
 			//Functionality
+			flag = true;
 		}
 	}
 	
-	
-	// 
 }
