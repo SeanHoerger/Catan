@@ -11,18 +11,17 @@ public class BoardData{
 	private int[] numbers = {2,3,3,4,4,5,5,6,6,8,8,9,9,10,10,11,11,12}; // the number values in the game
 	private boolean[][] boardMatrix; //adjacency matrix that shows edges
 	private VertexArray vertexArray;
-	private Player player1;
-	private Player player2;
-	private Player player3;
-	private Player player4;
+	private Player[] players;
 	private Tile[] tiles = new Tile[NUM_TILES]; // an array that holds all the tiles in the game
 	
 	// default (no argument) constructor
 	public BoardData() {
-		player1 = new Player();
-		player2 = new Player();
-		player3 = new Player();
-		player4 = new Player();
+		Player p1 = new Player();
+		Player p2 = new Player();
+		Player p3 = new Player();
+		Player p4 = new Player();
+		
+		players = new Player[] {p1, p2, p3, p4};
 		
 		//gives each of the tiles its proper color and type
 		for (int i = 0; i < NUM_TILES; i++) {
@@ -68,6 +67,10 @@ public class BoardData{
 	
 	public VertexArray getVertexArray() {
 		return this.vertexArray;
+	}
+	
+	public Player[] getPlayers() {
+		return players;
 	}
 	
 	// returns the tile at index i in the array of tiles

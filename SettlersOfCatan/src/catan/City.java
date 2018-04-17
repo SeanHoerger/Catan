@@ -6,11 +6,15 @@ import java.awt.Polygon;
 
 public class City extends House{
 
-	public City(int x, int y, Player owner) {
-		super(x, y, owner);
+	public City() {
+		super();
 	}
 	
-	public void draw(Graphics g) {
+	public City(Vertex v) {
+		super(v);
+	}
+	
+	public void draw(Graphics g, Color c) {
 		//draw settlement
 		
 		int x = this.getX();
@@ -34,7 +38,7 @@ public class City extends House{
 		
 		Polygon p = new Polygon(xValues, yValues, 7);	
 		
-		g.setColor(this.getOwner().getColor());
+		g.setColor(c);
 		g.fillPolygon(p);
 		g.setColor(Color.BLACK);
 		g.drawPolygon(p);

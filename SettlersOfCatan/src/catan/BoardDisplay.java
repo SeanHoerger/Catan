@@ -140,6 +140,10 @@ public class BoardDisplay extends JComponent{
 		
 		turns.returnCurrentPlayer().displayHand(g);
 		
+		for(int i = 0; i < boardData.getPlayers().length; i++) {
+			boardData.getPlayers()[i].drawAll(g);
+		}
+		
 		// road test
 		/*Vertex v1 = new Vertex(XSTART, YSTART, 0, 0);
 		Vertex v2 = new Vertex(XSTART+3*SCALAR, YSTART+2*SCALAR, 0, 0);

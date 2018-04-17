@@ -2,6 +2,7 @@ package catan;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -29,7 +30,11 @@ public class Player{
 	private int[] devCards = new int[25];
 	private String playerName;
 	private int building = 0; //Keeps track if the player is building. 0 = no, 1 = road, 2 = settlement, 3 = city
-	private Road[] roadList;
+	private ArrayList<Road> roadList;
+	private ArrayList<House> houseList;
+	private int roadsLeft = 15;
+	private int settlementsLeft = 5;
+	private int citiesLeft = 4;
 	
 	
 	/**
@@ -37,19 +42,23 @@ public class Player{
 	 */
 	public Player(int playerNumber, Hand newHand) {
 		this.playerNum = playerNumber;
-		this.hand = newHand;
-		
-		
+		this.hand = newHand;	
+		roadList = new ArrayList<Road>();
+		houseList = new ArrayList<House>();
 	}
 
 	public Player(int playerNumber) {
 		this.playerNum = playerNumber;
 		this.hand = new Hand(0,0,0,0,0);
+		roadList = new ArrayList<Road>();
+		houseList = new ArrayList<House>();
 	}
 	
 	public Player() {
 		this.hand = new Hand(0,0,0,0,0);
 		this.playerNum = 0;
+		roadList = new ArrayList<Road>();
+		houseList = new ArrayList<House>();
 	}
 
 	/**
@@ -122,13 +131,13 @@ public class Player{
 		}
 	}
 
-	public Road[] getRoads() {
+	public ArrayList<Road> getRoads() {
 		return roadList;
 	}
 	
 	// Used to keep track of the current number of roads and ensure that the number is less than 15
 	public int getNumRoads() {
-		return roadList.length;
+		return (15 - roadsLeft);
 	}
 	
 	/**
@@ -161,10 +170,6 @@ public class Player{
 	
 	public void setBuilding(int type) {
 		building = type;
-	}
-	
-	public void buildRoad(Vertex A, Vertex B) {
-		roadList[roadList.length] = new Road(A,B, this.getColor());
 	}
 
 	/**
@@ -292,21 +297,21 @@ public class Player{
 	 */
 	
 	public boolean canBuildRoad() {
-		if(hand.getBrick()> 0 && hand.getWood() > 0) {
+		if(hand.getBrick()> 0 && hand.getWood() > 0 && roadsLeft > 0) {
 			return true;
 		}
 		return false;
 	}
 	
 	public boolean canBuildSettlement() {
-		if(hand.getBrick()> 0 && hand.getWood() > 0 && hand.getSheep() > 0 && hand.getWheat() >0) {
+		if(hand.getBrick()> 0 && hand.getWood() > 0 && hand.getSheep() > 0 && hand.getWheat() >0 && settlementsLeft > 0) {
 			return true;
 		}
 		return false;
 	}
 	
 	public boolean canBuildCity() {
-		if(hand.getWheat()> 1 && hand.getOre() > 2) {
+		if((hand.getWheat() > 1) && (hand.getOre() > 2) && citiesLeft > 0 && citiesLeft > 0 && settlementsLeft < 5){
 			return true;
 		}
 		return false;
@@ -319,5 +324,42 @@ public class Player{
 		return false;
 	}
 	
+	public void buildRoad(Vertex v1, Vertex v2) {
+		if(this.canBuildRoad() == true) {
+			roadList.add(new Road(v1,v2, this.getColor()));
+			roadsLeft--;
+		}
+	}
 	
+	public void buildSettlement(Vertex v) {
+		if (this.canBuildSettlement() == true) {
+			houseList.add(new Settlement(v));
+			settlementsLeft--;
+		}
+	}
+	
+	public void buildCity(Vertex v) {
+		if(this.canBuildCity()) {
+			for(int i = 0; i < houseList.size(); i++) {
+				if(v.equals(houseList.get(i).getVertex())) {
+					houseList.remove(i);
+					settlementsLeft++;
+					houseList.add(new City(v));
+					citiesLeft--;
+					break;
+				}
+			}
+		}
+	}
+	
+	public void drawAll(Graphics g) {
+		// draw Roads
+		for(int i = 0; i < roadList.size(); i++) {
+			roadList.get(i).draw(g);
+		}
+		// draw Houses
+		for(int i = 0; i < houseList.size(); i++) {
+			houseList.get(i).draw(g, this.getColor());
+		}
+	}
 }

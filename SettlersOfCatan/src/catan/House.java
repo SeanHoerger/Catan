@@ -4,27 +4,34 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public abstract class House {
-	private int x;
-	private int y;
-	private Player owner;
+	private Vertex vertex;
+	private boolean visible;
 	
-	public House(int x, int y, Player owner) {
-		this.x = x;
-		this.y = y;
-		this. owner = owner;
+	public House() {
+		vertex = new Vertex();
+		visible = false;
+	}
+	
+	public House(Vertex v) {
+		vertex = v;
+		visible = true;
+	}
+	
+	public Vertex getVertex() {
+		return vertex;
 	}
 	
 	public int getX() {
-		return x;
+		return vertex.getX();
 	}
 	
 	public int getY() {
-		return y;
+		return vertex.getY();
 	}
 	
-	public Player getOwner() {
-		return owner;
+	public boolean isVisible() {
+		return visible;
 	}
 	
-	public abstract void draw(Graphics g);
+	public abstract void draw(Graphics g, Color c);
 }

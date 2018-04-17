@@ -58,6 +58,13 @@ public class Vertex extends Location {
 	public void addNeighbor(Tile neighbor) {
 		neighborTiles.add(neighbor);
 	}
+	
+	public boolean equals(Vertex v) {
+		if(this.getX() == v.getX() && this.getY() == v.getY()) {
+			return true;
+		}
+		return false;
+	}
 
 	private class vertexHandler implements ActionListener{
 		@Override

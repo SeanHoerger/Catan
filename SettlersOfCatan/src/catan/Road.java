@@ -14,6 +14,15 @@ public class Road {
 	private Color color;
 	private boolean visible;
 	
+	public Road() {
+		x1 = 0;
+		x2 = 0;
+		y1 = 0;
+		y2 = 0;
+		color = Color.BLACK;
+		visible = false;
+	}
+	
 	public Road(Vertex start, Vertex end, Color color) {
 		if (start.getX() <= end.getX()) {
 			x1 = start.getX();
@@ -31,8 +40,6 @@ public class Road {
 		this.visible = true;
 	}
 	
-	
-
 	public void draw(Graphics g) {
 		if (visible == true) {
 			double xD = x2 - x1;
