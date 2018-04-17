@@ -23,7 +23,7 @@ public class Road {
 			color = Color.WHITE;
 		}
 		else if(playerNum == 3) {
-			color = new Color(240, 100, 0);
+			color = new Color(255, 150, 0);
 		}
 		else if(playerNum == 4) {
 			color = Color.RED;
@@ -56,7 +56,7 @@ public class Road {
 			color = Color.WHITE;
 		}
 		else if(playerNum == 3) {
-			color = Color.ORANGE;
+			color = new Color(255, 150, 0);
 		}
 		else if(playerNum == 4) {
 			color = Color.RED;
