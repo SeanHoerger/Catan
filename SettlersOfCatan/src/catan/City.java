@@ -6,8 +6,8 @@ import java.awt.Polygon;
 
 public class City extends House{
 
-	public City(int x, int y, Color playerColor) {
-		super(x, y, playerColor);
+	public City(int x, int y, Player owner) {
+		super(x, y, owner);
 	}
 	
 	public void draw(Graphics g) {
@@ -34,7 +34,7 @@ public class City extends House{
 		
 		Polygon p = new Polygon(xValues, yValues, 7);	
 		
-		g.setColor(this.getColor());
+		g.setColor(this.getOwner().getColor());
 		g.fillPolygon(p);
 		g.setColor(Color.BLACK);
 		g.drawPolygon(p);

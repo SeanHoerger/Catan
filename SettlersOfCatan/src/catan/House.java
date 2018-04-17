@@ -6,21 +6,13 @@ import java.awt.Graphics;
 public abstract class House {
 	private int x;
 	private int y;
-	private Color color;
+	private Player owner;
 	
-	public House(int x, int y, Color playerColor) {
+	public House(int x, int y, Player owner) {
 		this.x = x;
 		this.y = y;
-		color = playerColor;
+		this. owner = owner;
 	}
-	
-	/*
-	public Road(Vertex loc, Color roadColor) {
-		this.x = loc.get()X;
-		this.y = loc.get()Y;
-		color = roadColor;
-	}
-	*/
 	
 	public int getX() {
 		return x;
@@ -30,8 +22,8 @@ public abstract class House {
 		return y;
 	}
 	
-	public Color getColor() {
-		return color;
+	public Player getOwner() {
+		return owner;
 	}
 	
 	public abstract void draw(Graphics g);

@@ -5,7 +5,6 @@ import javax.swing.*;
 
 /**
  * This class needs the following arguments at the minimum:
- * 		JFrame window  		- Where the button will pop up
  * 		int SCALAR			- Parameters for the button
  * 		Player one
  * 		Player two
@@ -16,7 +15,6 @@ import javax.swing.*;
  *
  */
 public class TurnTracker {
-	private JFrame window;		//Which window the button will show up in
 	private int playerTurn = 1; //Int that ranges from 1 - the number of players and keeps track of the turns
 	private int numPlayers;		//The number of players, starting at 1
 	private Player player1;
@@ -26,40 +24,9 @@ public class TurnTracker {
 	private int SCALAR;
 	/**
 	 * Constructor
-	 * Assumes player1 is the starting player
-	 * Only 3 constructors since you cannot play the game with only 1 player
-	 * (Note: This will need to change if we implement AI)
+	 * Players are added through the method, not initialized
 	 */
-	public TurnTracker(JFrame hostWindow, int SCALAR, Player one, Player two, Player three, Player four) {
-		this.window = hostWindow;
-		this.SCALAR = SCALAR;
-		this.player1 = one;
-		this.player2 = two;
-		this.player3 = three;
-		this.player4 = four;
-		this.numPlayers = 4;
-		//this.addEndTurnButton();
-	}
-	
-	public TurnTracker(JFrame hostWindow, int SCALAR, Player one, Player two, Player three) {
-		this.window = hostWindow;
-		this.SCALAR = SCALAR;
-		this.player1 = one;
-		this.player2 = two;
-		this.player3 = three;
-		this.numPlayers = 3;
-		//this.addEndTurnButton();
-	}
-	
-	public TurnTracker(JFrame hostWindow, int SCALAR, Player one, Player two) {
-		this.window = hostWindow;
-		this.SCALAR = SCALAR;
-		this.player1 = one;
-		this.player2 = two;
-		this.numPlayers = 2;
-		//this.addEndTurnButton();
-	}
-	
+
 	public TurnTracker() { //Generic constructor
 		this.numPlayers = 0;
 	}
@@ -69,6 +36,21 @@ public class TurnTracker {
 	 */
 	public int getPlayerTurn() {
 		return playerTurn;
+	}
+	
+	public Player returnCurrentPlayer() {
+		if(playerTurn == 1) {
+			return player1;
+		}
+		else if(playerTurn == 2) {
+			return player2;
+		}
+		else if(playerTurn == 3) {
+			return player3;
+		}
+		else{
+			return player4;
+		}
 	}
 	
 	/**
@@ -92,7 +74,6 @@ public class TurnTracker {
 		endTurn.setSize(20, 40);
 		HandlerClass handler = new HandlerClass();
 		endTurn.addActionListener(handler);
-		//window.add(endTurn);
 
 	}
 	
@@ -104,7 +85,6 @@ public class TurnTracker {
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			cycleTurn();
-			//JOptionPane.showMessageDialog(window, String.format("%s", "PlayerTurn: " + playerTurn));
 		}
 	}
 	
@@ -114,20 +94,21 @@ public class TurnTracker {
 	 * @param player
 	 */
 	public void addPlayer(Player player) {
-		if(this.numPlayers == 0) {
-			this.player1 = player;
+		if(this.numPlayers < 4) {
+			if(this.numPlayers == 0) {
+				this.player1 = player;
+			}
+			else if(this.numPlayers == 1) {
+				this.player2 = player;
+			}
+			else if(this.numPlayers == 2) {
+				this.player3 = player;
+			}
+			else if(this.numPlayers == 3) {
+				this.player4 = player;
+			}
+			this.numPlayers++;
 		}
-		if(this.numPlayers == 1) {
-			this.player2 = player;
-		}
-		if(this.numPlayers == 2) {
-			this.player3 = player;
-		}
-		if(this.numPlayers == 3) {
-			this.player4 = player;
-			this.numPlayers--;
-		}
-		this.numPlayers++;
 	}
 	
 	

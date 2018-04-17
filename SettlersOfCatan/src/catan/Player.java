@@ -1,5 +1,6 @@
 package catan;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Random;
 
@@ -27,6 +28,7 @@ public class Player{
 	private Hand hand;
 	private int[] devCards = new int[25];
 	private String playerName;
+	private int building = 0; //Keeps track if the player is buildling. 0 = no, 1 = road, 2 = settlement, 3 = city
 
 	/**
 	 * Constructors
@@ -34,6 +36,8 @@ public class Player{
 	public Player(int playerNumber, Hand newHand) {
 		this.playerNum = playerNumber;
 		this.hand = newHand;
+		
+		
 	}
 
 	public Player(int playerNumber) {
@@ -81,7 +85,7 @@ public class Player{
 		return hand.getWheat();
 	}
 
-	public int getIron() {
+	public int getOre() {
 		return hand.getOre();
 	}
 
@@ -93,6 +97,29 @@ public class Player{
 		return playerName;
 	}
 
+	public int getNumber() {
+		return playerNum;
+	}
+	
+	public int getBuilding() {
+		return building;
+	}
+	
+	public Color getColor() {
+		if (playerNum == 1) {
+			return Color.BLUE;
+		}
+		else if (playerNum == 2) {
+			return Color.WHITE;
+		}
+		else if(playerNum == 3) {
+			return Color.ORANGE;
+		}
+		else {
+			return Color.RED;
+		}
+	}
+	
 	/**
 	 * Setters
 	 */
@@ -120,6 +147,10 @@ public class Player{
 	public void setName(String name) {
 		playerName = name;
 	}
+	
+	public void setBuilding(int type) {
+		building = type;
+	}
 
 	/**
 	 * Basic Functions Give
@@ -144,11 +175,16 @@ public class Player{
 		hand.giveOre(newOre);
 	}
 	
+	
 	/**
 	 * Basic functions to manipulate and add/remove dev cards
 	 */
 	public int[] getDevCards() {
 		return devCards;
+	}
+	
+	public int numDevCards() {
+		return this.indexOfLastDev();
 	}
 	
 	/**
@@ -235,4 +271,38 @@ public class Player{
 	public void displayHand(Graphics g) {
 		hand.display(g);
 	}
+	
+	/**
+	 * Boolean methods to return if the player can build certain objects
+	 */
+	
+	public boolean canBuildRoad() {
+		if(hand.getBrick()> 0 && hand.getWood() > 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean canBuildSettlement() {
+		if(hand.getBrick()> 0 && hand.getWood() > 0 && hand.getSheep() > 0 && hand.getWheat() >0) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean canBuildCity() {
+		if(hand.getWheat()> 1 && hand.getOre() > 2) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean canBuildDevCard() {
+		if(hand.getSheep()> 0 && hand.getWheat() > 0 && hand.getOre() > 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	
 }
