@@ -16,43 +16,49 @@ public class BuildPanel extends JFrame{
 	private static JButton buildSettlement = new JButton("Settlement");
 	private static JButton buildCity = new JButton("City");
 	private static JButton buildDevCard = new JButton("Dev Card");
+	private static JButton closeWindow = new JButton("Close");
 	private static Player currentPlayer;
 	private static int SCALAR;
 	private static int flag = 0;
 	
-	public BuildPanel(int scalar, Player player) {
+	public BuildPanel(int scalar) {
 		SCALAR = scalar;
-		currentPlayer = player;
-		setTitle("Build Panel (B)"); //Contains the instructions
+		setTitle("Build Panel"); //Contains the instructions
 		setSize(21 * SCALAR, 25 * SCALAR);
-		setLocation(18*SCALAR, 4*SCALAR);
-		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		setLocation(18*SCALAR, 2*SCALAR);
+		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		holder.setLayout(null);
 		label.setBounds(6*SCALAR, SCALAR, 10*SCALAR, SCALAR);
 		holder.add(label);
-		initializeButtons();
-		initializeButtonIcons();
 		holder.add(buildRoad);
 		holder.add(buildSettlement);
 		holder.add(buildCity);
 		holder.add(buildDevCard);
+		holder.add(closeWindow);
 		add(holder);
+		setFocusable(false);
 	}
 	
+	public void updatePlayer(Player player) {
+		currentPlayer = player;
+		initializeButtons();
+		initializeButtonIcons();
+	}
 	/**
 	 * Sets the locations of the buttons and edits the images of the buttons depending on the resources
 	 * of the current player
 	 */
 	public void initializeButtons() {
-		buildRoad.setBounds(5*SCALAR, 3*SCALAR, 10*SCALAR, 4*SCALAR);
+		buildRoad.setBounds(5*SCALAR, 3*SCALAR, 10*SCALAR, 3*SCALAR);
 		buildRoad.setHorizontalAlignment(SwingConstants.HORIZONTAL);
-		buildSettlement.setBounds(5*SCALAR, 8*SCALAR, 10*SCALAR, 4*SCALAR);
+		buildSettlement.setBounds(5*SCALAR, 7*SCALAR, 10*SCALAR, 3*SCALAR);
 		buildSettlement.setHorizontalAlignment(SwingConstants.HORIZONTAL);
-		buildCity.setBounds(5*SCALAR, 13*SCALAR, 10*SCALAR, 4*SCALAR);
+		buildCity.setBounds(5*SCALAR, 11*SCALAR, 10*SCALAR, 3*SCALAR);
 		buildCity.setHorizontalAlignment(SwingConstants.HORIZONTAL);
-		buildDevCard.setBounds(5*SCALAR, 18*SCALAR, 10*SCALAR, 4*SCALAR);
+		buildDevCard.setBounds(5*SCALAR, 15*SCALAR, 10*SCALAR, 3*SCALAR);
 		buildDevCard.setHorizontalAlignment(SwingConstants.HORIZONTAL);
-		
+		closeWindow.setBounds(5*SCALAR, 19*SCALAR, 10*SCALAR, 3*SCALAR);
+		closeWindow.setHorizontalAlignment(SwingConstants.HORIZONTAL);
 		
 		roadHandler roadFunction = new roadHandler();
 		buildRoad.addActionListener(roadFunction);
@@ -62,6 +68,8 @@ public class BuildPanel extends JFrame{
 		buildCity.addActionListener(cityFunction);
 		devHandler devFunction = new devHandler();
 		buildDevCard.addActionListener(devFunction);
+		closeHandler closeFunction = new closeHandler();
+		closeWindow.addActionListener(closeFunction);
 		
 	}
 	
@@ -135,8 +143,9 @@ public class BuildPanel extends JFrame{
 			if(currentPlayer.canBuildRoad()) {
 				currentPlayer.giveWood(-1);
 				currentPlayer.giveBrick(-1);
+				currentPlayer.setBuilding(1);
 				BoardDisplay.updatePlayerPanel();
-				dispose();
+				setVisible(false);
 			}
 		}
 	}
@@ -149,8 +158,9 @@ public class BuildPanel extends JFrame{
 				currentPlayer.giveBrick(-1);
 				currentPlayer.giveWheat(-1);
 				currentPlayer.giveSheep(-1);
+				currentPlayer.setBuilding(2);
 				BoardDisplay.updatePlayerPanel();
-				dispose();
+				setVisible(false);
 			}
 		}
 	}
@@ -161,8 +171,9 @@ public class BuildPanel extends JFrame{
 			if(currentPlayer.canBuildCity()) {
 				currentPlayer.giveWheat(-2);
 				currentPlayer.giveOre(-3);
+				currentPlayer.setBuilding(3);
 				BoardDisplay.updatePlayerPanel();
-				dispose();
+				setVisible(false);
 			}
 		}
 	}
@@ -174,9 +185,19 @@ public class BuildPanel extends JFrame{
 				currentPlayer.giveWheat(-1);
 				currentPlayer.giveSheep(-1);
 				currentPlayer.giveOre(-1);
+				currentPlayer.giveDevCard(BoardDisplay.devDeck.drawDev());
 				BoardDisplay.updatePlayerPanel();
-				dispose();
+				setVisible(false);
 			}
+		}
+	}
+	
+	private class closeHandler implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			currentPlayer.setBuilding(0);
+			BoardDisplay.buildMenu.doClick();
+			dispose();
 		}
 	}
 

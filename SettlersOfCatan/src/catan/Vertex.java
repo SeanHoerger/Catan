@@ -37,5 +37,6 @@ public class Vertex extends Location {
 		this.houseType = houseType;
 	}
 	
+	
 	// 
 }

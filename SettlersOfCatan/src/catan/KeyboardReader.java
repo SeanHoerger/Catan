@@ -50,7 +50,6 @@ public class KeyboardReader implements KeyListener {
 			enterPressed = true;
 			break;
 		default:
-			System.out.println("Some button pressed");
 		}
 	}
 

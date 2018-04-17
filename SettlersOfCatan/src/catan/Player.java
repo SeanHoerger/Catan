@@ -27,6 +27,7 @@ public class Player{
 	private Hand hand;
 	private int[] devCards = new int[25];
 	private String playerName;
+	private int building = 0; //Keeps track if the player is buildling. 0 = no, 1 = road, 2 = settlement, 3 = city
 
 	/**
 	 * Constructors
@@ -97,6 +98,9 @@ public class Player{
 		return playerNum;
 	}
 	
+	public int getBuilding() {
+		return building;
+	}
 	
 	/**
 	 * Setters
@@ -125,6 +129,10 @@ public class Player{
 	public void setName(String name) {
 		playerName = name;
 	}
+	
+	public void setBuilding(int type) {
+		building = type;
+	}
 
 	/**
 	 * Basic Functions Give
@@ -148,6 +156,7 @@ public class Player{
 	public void giveOre(int newOre) {
 		hand.giveOre(newOre);
 	}
+	
 	
 	/**
 	 * Basic functions to manipulate and add/remove dev cards

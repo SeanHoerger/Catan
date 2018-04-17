@@ -13,7 +13,19 @@ public class Road {
 	private int y2;
 	private Color color;
 	
-	public Road(int startX, int startY, int endX, int endY, Color roadColor) {
+	public Road(int startX, int startY, int endX, int endY, int playerNum) {
+		if(playerNum == 1) {
+			color = Color.BLUE;
+		}
+		else if(playerNum == 2) {
+			color = Color.WHITE;
+		}
+		else if(playerNum == 3) {
+			color = new Color(240, 100, 0);
+		}
+		else if(playerNum == 4) {
+			color = Color.RED;
+		}
 		if (startX <= endX) {
 			x1 = startX;
 			x2 = endX;
@@ -26,18 +38,31 @@ public class Road {
 			y1 = endY;
 			y2 = startY;
 		}
-		color = roadColor;
 	}
 	
-	/*
-	public Road(Vertex start, Vertex end, Color roadColor) {
-		x1 = start.get()X;
-		x2 = end.get()X;
-		y1 = start.get()Y;
-		y2 = endY.get();
-		color = roadColor;
+	
+	public Road(Vertex start, Vertex end, int playerNum) {
+		x1 = start.getX();
+		x2 = end.getX();
+		y1 = start.getY();
+		y2 = end.getY();
+		if(playerNum == 1) {
+			color = Color.BLUE;
+		}
+		else if(playerNum == 2) {
+			color = Color.WHITE;
+		}
+		else if(playerNum == 3) {
+			color = Color.ORANGE;
+		}
+		else if(playerNum == 4) {
+			color = Color.RED;
+		}
+		else {
+			color = Color.GREEN;
+		}
 	}
-	*/
+	
 	
 	public void draw(Graphics g) {
 		

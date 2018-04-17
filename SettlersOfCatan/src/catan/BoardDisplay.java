@@ -12,14 +12,17 @@ import javax.swing.*;
 public class BoardDisplay extends JComponent{
 
 	public static boolean hasRolled = false; //flag to register when the Start! button has been pressed. Recycled to flag if the dice have been rolled this turn
+	public static boolean hasPressedBuild = false;
 	public static final int XDIM = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	public static final int YDIM = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	public static final int SCALAR = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 55); // <-- magic number: 55
 	public static final int XSTART = 10*SCALAR;
 	public static final int YSTART = SCALAR;
-	public static int numPlayers = 0;
 	
+	public static int numPlayers = 0;
 	public static int gameOver = 0;
+	
+	public static DevCards devDeck = new DevCards();
 	
 	public static JButton startGame = new JButton("Start Game");
 	public static JButton reshuffleBoard = new JButton("Reshuffle Board");
@@ -30,6 +33,7 @@ public class BoardDisplay extends JComponent{
 	public static JButton buildMenu = new JButton("Build (B)");
 	
 	public static KeyboardReader keyboardInput = new KeyboardReader();
+	private static BuildPanel buildPanel = new BuildPanel(SCALAR);
 	
 	/**
 	 * JLabels control the text that indicates the player names and hand sizes
@@ -51,6 +55,7 @@ public class BoardDisplay extends JComponent{
 	public static Player player4 = new Player(4);
 	
 	private static final BoardData boardData = new BoardData();
+
 
 	public static void main(String[] args) {
 		turns.addPlayer(player1);
@@ -90,6 +95,10 @@ public class BoardDisplay extends JComponent{
 		while(gameOver == 0) {
 			window.requestFocusInWindow();
 			checkPlayerInput();
+			if(getCurrentPlayer().getBuilding() != 0) {
+				try { Thread.sleep(200); } catch (InterruptedException e) {};
+				System.out.println(getCurrentPlayer().getBuilding());
+			}
 		}
 	}
 
@@ -104,6 +113,21 @@ public class BoardDisplay extends JComponent{
 		this.update(g);
 	}
 	
+	public static Player getCurrentPlayer() {
+		if(turns.getPlayerTurn() == 1) {
+			return player1;
+		}
+		if(turns.getPlayerTurn() == 2) {
+			return player2;
+		}
+		if(turns.getPlayerTurn() == 3) {
+			return player3;
+		}
+		else{
+			return player4;
+		}
+	}
+	
 	
 	@Override
 	public void update(Graphics g) {
@@ -115,9 +139,9 @@ public class BoardDisplay extends JComponent{
 		turns.returnCurrentPlayer().displayHand(g);
 		
 		// road test
-		Road r1 = new Road(XSTART, YSTART, XSTART+3*SCALAR, YSTART+2*SCALAR, Color.RED);
-		Road r2 = new Road(XSTART, YSTART, XSTART-3*SCALAR, YSTART+2*SCALAR, Color.ORANGE);
-		Road r3 = new Road(XSTART+3*SCALAR, YSTART+2*SCALAR, XSTART+3*SCALAR, YSTART+5*SCALAR, Color.BLUE);
+		Road r1 = new Road(XSTART, YSTART, XSTART+3*SCALAR, YSTART+2*SCALAR, 1);
+		Road r2 = new Road(XSTART, YSTART, XSTART-3*SCALAR, YSTART+2*SCALAR, 2);
+		Road r3 = new Road(XSTART+3*SCALAR, YSTART+2*SCALAR, XSTART+3*SCALAR, YSTART+5*SCALAR, 3);
 		r1.draw(g);
 		r2.draw(g);
 		r3.draw(g);
@@ -198,9 +222,35 @@ public class BoardDisplay extends JComponent{
 	private static class buildMenuHandler implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent event) {
-			BuildPanel buildPanel = new BuildPanel(SCALAR, turns.returnCurrentPlayer());
-			buildPanel.setFocusable(false);
-			buildPanel.setVisible(true);
+			if(hasPressedBuild == false) {
+				buildPanel.updatePlayer(getCurrentPlayer());
+				buildMenu.setText("Undo");
+				buildPanel.setFocusable(false);
+				buildPanel.setVisible(true);
+				hasPressedBuild = true;
+			}
+			else {
+				buildMenu.setText("Build (B)");
+				if(getCurrentPlayer().getBuilding() == 0) {
+				}
+				else if(getCurrentPlayer().getBuilding() == 1) {
+					getCurrentPlayer().giveBrick(1);
+					getCurrentPlayer().giveWood(1);
+				}
+				else if(getCurrentPlayer().getBuilding() == 2) {
+					getCurrentPlayer().giveBrick(1);
+					getCurrentPlayer().giveWood(1);
+					getCurrentPlayer().giveSheep(1);
+					getCurrentPlayer().giveWheat(1);
+				}
+				else if(getCurrentPlayer().getBuilding() == 3) {
+					getCurrentPlayer().giveWheat(2);
+					getCurrentPlayer().giveOre(3);
+				}
+				getCurrentPlayer().setBuilding(0);
+				updatePlayerPanel();
+				hasPressedBuild = false;
+			}
 		}
 	}
 	
