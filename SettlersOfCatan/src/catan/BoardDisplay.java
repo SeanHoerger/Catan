@@ -172,7 +172,7 @@ public class BoardDisplay extends JComponent{
 		*/
 		
 		// test vertexes
-		//boardData.getVertexArray().test(g);
+		boardData.getVertexArray().test(g);
 	}
 	
 	/**
@@ -202,8 +202,10 @@ public class BoardDisplay extends JComponent{
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			boardData.shuffleTiles();
-			boardData.setLocations();
 			boardData.shuffleNumbers();
+			boardData.setLocations();
+			boardData.getVertexArray().resetNeighbors();
+			boardData.addVertexNeighbors();
 			window.repaint();
 		}
 	}
