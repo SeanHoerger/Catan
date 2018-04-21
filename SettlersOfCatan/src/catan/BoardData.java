@@ -70,7 +70,7 @@ public class BoardData{
 	}
 	
 	public Player[] getPlayers() {
-		return players;
+		return players; 
 	}
 	
 	// returns the tile at index i in the array of tiles

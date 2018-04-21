@@ -31,6 +31,10 @@ public class VertexArray {
 		}
 	}
 	
+	public Vertex[] getArray() {
+		return vertexes;
+	}
+	
 	private void setLocations() {
 		int xPos = BoardDisplay.XSTART;
 		int yPos = BoardDisplay.YSTART;
