@@ -71,12 +71,7 @@ public class BoardDisplay extends JComponent{
 		window.setVisible(true);
 		window.setLayout(null); //Necessary to be able to set the direct x and y coordinates
 		reshuffleBoardButton();
-		System.out.println(boardData.getVertexArray().getVertex(10).toString());
-		System.out.println(boardData.getVertexArray().getVertex(40).toString());
-		window.add(boardData.getVertexArray().getVertex(10).getVertexButton());
-		for(int i = 0; i<boardData.getVertexArray().getLength(); i++) {
-			//window.add(boardData.getVertexArray().getVertex(i).getVertexButton());
-		}
+		//window.add(boardData.getVertexArray().getVertex(10).getVertexButton());
 		setPlayerNames();
 		startGame(player1, player2, player3, player4);
 		window.addKeyListener(keyboardInput);
@@ -148,6 +143,13 @@ public class BoardDisplay extends JComponent{
 		
 		for(int i = 0; i < boardData.getPlayers().length; i++) {
 			boardData.getPlayers()[i].drawAll(g);
+		}
+		
+		for(int i = 0; i<boardData.getVertexArray().getLength(); i++) {
+			if(boardData.getVertexArray().getVertex(i).isVisible()) {
+				window.add(boardData.getVertexArray().getVertex(i).getVertexButton());
+				boardData.getVertexArray().getVertex(i).getVertexButton().repaint();
+			}
 		}
 		
 		// road test

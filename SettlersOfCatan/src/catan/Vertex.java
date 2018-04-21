@@ -11,7 +11,7 @@ public class Vertex extends Location {
 	 * Grant wrote this so.... yeah
 	 */
 	private int houseType; // 0 = unsettled, 1 = settlement, 2 = city
-	private static JButton vertexButton = new JButton();
+	private JButton vertexButton = new JButton();
 	private boolean flag = false; //Flag to determine if the vertex was clicked
 	ArrayList<Tile> neighborTiles;
 	
@@ -19,22 +19,19 @@ public class Vertex extends Location {
 	public Vertex(int x, int y, int houseType) { 
 		super(x,y);
 		this.houseType = houseType;
-		vertexButton.setBounds(x-BoardDisplay.SCALAR/2, y-BoardDisplay.SCALAR/2, 
-				BoardDisplay.SCALAR, BoardDisplay.SCALAR);
 		vertexHandler vertexFunction = new vertexHandler();
 		vertexButton.addActionListener(vertexFunction);
 		neighborTiles = new ArrayList<Tile>();
-		vertexButton.setVisible(false);
+		vertexButton.setVisible(true);
 	}
 	
 	public Vertex() {
 		super(0,0);
 		houseType = 0;
-		vertexButton.setBounds(getX()-BoardDisplay.SCALAR/2, getY()-BoardDisplay.SCALAR/2, 
-				BoardDisplay.SCALAR, BoardDisplay.SCALAR);
 		vertexHandler vertexFunction = new vertexHandler();
 		vertexButton.addActionListener(vertexFunction);
 		neighborTiles = new ArrayList<Tile>();
+		vertexButton.setVisible(true);
 	}
 	
 	
@@ -67,14 +64,28 @@ public class Vertex extends Location {
 	}
 
 	public JButton getVertexButton() {
-		vertexButton.setVisible(true);
+		vertexButton.setBounds(getX()-BoardDisplay.SCALAR/2, getY()-BoardDisplay.SCALAR/2, 
+				BoardDisplay.SCALAR, BoardDisplay.SCALAR);
 		return vertexButton;
+	}
+	
+	public void hideVertexButton() {
+		vertexButton.setVisible(false);
+	}
+	
+	public boolean isVisible() {
+		if(vertexButton.isVisible()) {
+			return true;
+		}
+		return false;
 	}
 	
 	private class vertexHandler implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent Event) {
 			//Functionality
+			JFrame window = new JFrame();
+			JOptionPane.showMessageDialog(window, "Fuck You");
 			flag = true;
 		}
 	}
