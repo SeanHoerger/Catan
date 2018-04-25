@@ -107,4 +107,15 @@ public class Vertex extends Location {
 		return str;
 	}
 	
+	public String toString() {
+		return "x: " + super.getX() + ", y: " + super.getY() + ", Neighbors: " + neighborString();
+	}
+	
 }
+
+
+
+
+
+
+

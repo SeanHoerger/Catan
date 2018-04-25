@@ -16,10 +16,10 @@ public class BoardData{
 	
 	// default (no argument) constructor
 	public BoardData() {
-		Player p1 = new Player();
-		Player p2 = new Player();
-		Player p3 = new Player();
-		Player p4 = new Player();
+		Player p1 = BoardDisplay.player1;
+		Player p2 = BoardDisplay.player2;
+		Player p3 = BoardDisplay.player3;
+		Player p4 = BoardDisplay.player4;
 		
 		players = new Player[] {p1, p2, p3, p4};
 		
@@ -416,5 +416,11 @@ public class BoardData{
 			System.out.println(i + ": " + tiles[i].getNumber());
 		}
 		System.out.println("END:");
+	}
+	
+	public void pullResources(int roll) {
+		for(int i = 0; i < players.length; i++) {
+			players[i].pullResources(roll);
+		}
 	}
 }

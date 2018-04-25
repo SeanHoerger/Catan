@@ -79,7 +79,13 @@ public class BoardDisplay extends JComponent{
 		player1.giveWheat(2);
 		player1.giveSheep(1);
 		player1.giveWood(1);
-		player1.giveOre(3);
+		player1.giveOre(4);
+		
+		// settlement test
+		player1.buildSettlement(boardData.getVertexArray().getVertex(0));
+		player1.buildSettlement(boardData.getVertexArray().getVertex(2));
+		
+		
 		player2.giveBrick(1);
 		player2.giveWheat(2);
 		player2.giveSheep(1);
@@ -95,6 +101,8 @@ public class BoardDisplay extends JComponent{
 		player4.giveSheep(1);
 		player4.giveWood(1);
 		player4.giveOre(3);
+		
+		
 		updatePlayerPanel();
 		while(!gameOver) {
 			window.requestFocusInWindow();
@@ -144,13 +152,14 @@ public class BoardDisplay extends JComponent{
 		for(int i = 0; i < boardData.getPlayers().length; i++) {
 			boardData.getPlayers()[i].drawAll(g);
 		}
-		
+		/*
 		for(int i = 0; i<boardData.getVertexArray().getLength(); i++) {
 			if(boardData.getVertexArray().getVertex(i).isVisible()) {
 				window.add(boardData.getVertexArray().getVertex(i).getVertexButton());
 				boardData.getVertexArray().getVertex(i).getVertexButton().repaint();
 			}
 		}
+		*/
 		
 		// road test
 		/*Vertex v1 = new Vertex(XSTART, YSTART, 0, 0);
@@ -165,16 +174,17 @@ public class BoardDisplay extends JComponent{
 		r3.draw(g);
 		
 		// settlement test
-		Settlement s1 = new Settlement(XSTART, YSTART, player1);
-		s1.draw(g);
+		Settlement s1 = new Settlement(boardData.getVertexArray().getVertex(15));
+		House h1 = s1;
+		h1.draw(g, Color.black);
 		
 		// city test
-		City c1 = new City(XSTART + 3*SCALAR, YSTART + 2*SCALAR, player2);
-		c1.draw(g);
+		City c1 = new City(boardData.getVertexArray().getVertex(16));
+		c1.draw(g, Color.BLACK);
 		*/
 		
 		// test vertexes
-		boardData.getVertexArray().test(g);
+		//boardData.getVertexArray().test(g);
 	}
 	
 	/**
@@ -245,7 +255,9 @@ public class BoardDisplay extends JComponent{
 				buildMenu.setVisible(true);
 				window.repaint();
 				hasRolled = true;
-				JOptionPane.showMessageDialog(window, String.format("%s", "Roll: " + dice.getRandom()));
+				int roll = dice.getRandom();
+				JOptionPane.showMessageDialog(window, String.format("%s", "Roll: " + roll));
+				boardData.pullResources(roll);
 			}
 		}
 	}
@@ -383,6 +395,4 @@ public class BoardDisplay extends JComponent{
 			}
 		}
 	}
-	
-
 }
