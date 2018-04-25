@@ -75,14 +75,14 @@ public class BoardDisplay extends JComponent{
 		setPlayerNames();
 		startGame(player1, player2, player3, player4);
 		window.addKeyListener(keyboardInput);
-		player1.giveBrick(1);
-		player1.giveWheat(2);
-		player1.giveSheep(1);
-		player1.giveWood(1);
-		player1.giveOre(4);
-		
+		player1.giveBrick(5);
+		player1.giveWheat(5);
+		player1.giveSheep(5);
+		player1.giveWood(5);
+		player1.giveOre(5);
+		player1.buildSettlement(boardData.getVertexArray().getVertex(1));
 		updatePlayerPanel();
-		getCurrentPlayer().buildSettlement(boardData.getVertexArray().getVertex(2));
+		
 		while(!gameOver) {
 			window.requestFocusInWindow();
 			checkPlayerInput();
@@ -93,13 +93,23 @@ public class BoardDisplay extends JComponent{
 				while(getCurrentPlayer().getBuilding() != 0) {
 					for(int i = 0; i< boardData.getVertexArray().getLength(); i++) {
 						if(boardData.getVertexArray().getVertex(i).isClicked()) {
-							System.out.println(getCurrentPlayer().getBuilding());
 							if(getCurrentPlayer().getBuilding() == 2) {
 								getCurrentPlayer().buildSettlement(boardData.getVertexArray().getVertex(i));;
 								getCurrentPlayer().setBuilding(0);
 								boardData.getVertexArray().getVertex(i).setHouseType(1);
 								buildMenu.doClick();
 								removeVertecies();
+							}
+							else if(getCurrentPlayer().getBuilding() == 3) {
+								for(int j = 0; j<getCurrentPlayer().getHouseList().size(); j++) {
+									if(getCurrentPlayer().getHouseList().get(j).getVertex() == boardData.getVertexArray().getVertex(i)) {
+										getCurrentPlayer().buildCity(boardData.getVertexArray().getVertex(i));
+										getCurrentPlayer().setBuilding(0);
+										boardData.getVertexArray().getVertex(i).setHouseType(2);
+										buildMenu.doClick();
+										removeVertecies();
+									}
+								}
 							}
 						}
 					}
