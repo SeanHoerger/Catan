@@ -16,11 +16,12 @@ public class BoardData{
 	
 	// default (no argument) constructor
 	public BoardData() {
+		
 		Player p1 = new Player(1);
 		Player p2 = new Player(2);
 		Player p3 = new Player(3);
 		Player p4 = new Player(4);
-		
+
 		players = new Player[] {p1, p2, p3, p4};
 		
 		//gives each of the tiles its proper color and type
@@ -338,8 +339,61 @@ public class BoardData{
 		this.addEdge (54,25);		
 	}
 	
-	private void addVertexNeighbors() {
-		// TODO Auto-generated method stub	
+	public void addVertexNeighbors() {
+		this.addNeighbors(0, 0);
+		this.addNeighbors(1, 1);
+		this.addNeighbors(2, 2);
+		this.addNeighbors(3, 0);
+		this.addNeighbors(4, 0, 1);
+		this.addNeighbors(5, 1, 2);
+		this.addNeighbors(6, 2);
+		this.addNeighbors(7, 0, 3);
+		this.addNeighbors(8, 0, 1, 4);
+		this.addNeighbors(9, 1, 2, 5);
+		this.addNeighbors(10, 2, 6);
+		this.addNeighbors(11, 3);
+		this.addNeighbors(12, 0, 3, 4);
+		this.addNeighbors(13, 1, 4, 5);
+		this.addNeighbors(14, 2, 5, 6);
+		this.addNeighbors(15, 6);
+		this.addNeighbors(16, 3, 7);
+		this.addNeighbors(17, 3, 4, 8);
+		this.addNeighbors(18, 4, 5, 9);
+		this.addNeighbors(19, 5, 6, 10);
+		this.addNeighbors(20, 6, 11);
+		this.addNeighbors(21, 7);
+		this.addNeighbors(22, 3, 7, 8);
+		this.addNeighbors(23, 4, 8, 9);
+		this.addNeighbors(24, 5, 9, 10);
+		this.addNeighbors(25, 6, 10, 11);
+		this.addNeighbors(26, 11);
+		this.addNeighbors(27, 7);
+		this.addNeighbors(28, 7, 8, 12);
+		this.addNeighbors(29, 8, 9, 13);
+		this.addNeighbors(30, 9, 10, 14);
+		this.addNeighbors(31, 10, 11, 15);
+		this.addNeighbors(32, 11);
+		this.addNeighbors(33, 7, 12);
+		this.addNeighbors(34, 8, 12, 13);
+		this.addNeighbors(35, 9, 13, 14);
+		this.addNeighbors(36, 10, 14, 15);
+		this.addNeighbors(37, 11, 15);
+		this.addNeighbors(38, 12);
+		this.addNeighbors(39, 12, 13, 16);
+		this.addNeighbors(40, 13, 14, 17);
+		this.addNeighbors(41, 14, 15, 18);
+		this.addNeighbors(42, 15);
+		this.addNeighbors(43, 12, 16);
+		this.addNeighbors(44, 13, 16, 17);
+		this.addNeighbors(45, 14, 17, 18);
+		this.addNeighbors(46, 15, 18);
+		this.addNeighbors(47, 16);
+		this.addNeighbors(48, 16, 17);
+		this.addNeighbors(49, 17, 18);
+		this.addNeighbors(50, 18);
+		this.addNeighbors(51, 16);
+		this.addNeighbors(52, 17);
+		this.addNeighbors(53, 18);
 	}
 	
 	private void addNeighbors(int i, int n1) {
@@ -355,5 +409,19 @@ public class BoardData{
 		vertexArray.addNeighbor(i, tiles[n1]);
 		vertexArray.addNeighbor(i, tiles[n2]);
 		vertexArray.addNeighbor(i, tiles[n3]);
+	}
+	
+	public void tilesTest() {
+		System.out.println("START:");
+		for(int i = 0; i < tiles.length; i++) {
+			System.out.println(i + ": " + tiles[i].getNumber());
+		}
+		System.out.println("END:");
+	}
+	
+	public void pullResources(int roll) {
+		for(int i = 0; i < players.length; i++) {
+			players[i].pullResources(roll);
+		}
 	}
 }

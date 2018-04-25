@@ -79,8 +79,10 @@ public class BoardDisplay extends JComponent{
 		player1.giveWheat(2);
 		player1.giveSheep(1);
 		player1.giveWood(1);
-		player1.giveOre(3);
+		player1.giveOre(4);
+		
 		updatePlayerPanel();
+		getCurrentPlayer().buildSettlement(boardData.getVertexArray().getVertex(2));
 		while(!gameOver) {
 			window.requestFocusInWindow();
 			checkPlayerInput();
@@ -91,6 +93,7 @@ public class BoardDisplay extends JComponent{
 				while(getCurrentPlayer().getBuilding() != 0) {
 					for(int i = 0; i< boardData.getVertexArray().getLength(); i++) {
 						if(boardData.getVertexArray().getVertex(i).isClicked()) {
+							System.out.println(getCurrentPlayer().getBuilding());
 							if(getCurrentPlayer().getBuilding() == 2) {
 								getCurrentPlayer().buildSettlement(boardData.getVertexArray().getVertex(i));;
 								getCurrentPlayer().setBuilding(0);
@@ -142,9 +145,7 @@ public class BoardDisplay extends JComponent{
 		
 		turns.returnCurrentPlayer().displayHand(g);
 		
-		for(int i = 0; i < boardData.getPlayers().length; i++) {
-			boardData.getPlayers()[i].drawAll(g);
-		}
+
 		
 		for(int i = 0; i < numPlayers; i++) {
 			boardData.getPlayers()[i].drawAll(g);
@@ -162,14 +163,14 @@ public class BoardDisplay extends JComponent{
 		r1.draw(g);
 		r2.draw(g);
 		r3.draw(g);
-		
 		// settlement test
-		Settlement s1 = new Settlement(XSTART, YSTART, player1);
-		s1.draw(g);
+		Settlement s1 = new Settlement(boardData.getVertexArray().getVertex(15));
+		House h1 = s1;
+		h1.draw(g, Color.black);
 		
 		// city test
-		City c1 = new City(XSTART + 3*SCALAR, YSTART + 2*SCALAR, player2);
-		c1.draw(g);
+		City c1 = new City(boardData.getVertexArray().getVertex(16));
+		c1.draw(g, Color.BLACK);
 		*/
 		
 		// test vertexes
@@ -221,8 +222,10 @@ public class BoardDisplay extends JComponent{
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			boardData.shuffleTiles();
-			boardData.setLocations();
 			boardData.shuffleNumbers();
+			boardData.setLocations();
+			boardData.getVertexArray().resetNeighbors();
+			boardData.addVertexNeighbors();
 			window.repaint();
 		}
 	}
@@ -260,7 +263,9 @@ public class BoardDisplay extends JComponent{
 				buildMenu.setVisible(true);
 				window.repaint();
 				hasRolled = true;
-				JOptionPane.showMessageDialog(window, String.format("%s", "Roll: " + dice.getRandom()));
+				int roll = dice.getRandom();
+				JOptionPane.showMessageDialog(window, String.format("%s", "Roll: " + roll));
+				boardData.pullResources(roll);
 			}
 		}
 	}
@@ -398,6 +403,4 @@ public class BoardDisplay extends JComponent{
 			}
 		}
 	}
-	
-
 }

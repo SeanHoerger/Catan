@@ -24,12 +24,18 @@ public class VertexArray {
 		vertexes[i].addNeighbor(neighbor);
 	}
 	
+	public void resetNeighbors() {
+		for(int i = 0; i < vertexes.length; i++) {
+			vertexes[i].resetNeighbors();
+		}
+	}
+	
 	public void test(Graphics g) {
 		for(int i = 0; i < vertexes.length; i++) {
 			Vertex vertex = vertexes[i];
 			g.setColor(Color.BLACK);
 			g.setFont(new Font (Font.SANS_SERIF, Font.BOLD, BoardDisplay.SCALAR));
-			g.drawString("" + i, vertex.getX(), vertex.getY());
+			g.drawString("" + i + ": " + vertex.neighborString(), vertex.getX(), vertex.getY());
 		}
 	}
 	

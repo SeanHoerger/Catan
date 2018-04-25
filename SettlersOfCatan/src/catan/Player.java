@@ -74,7 +74,7 @@ public class Player{
 			}
 		}
 		devString = devString + ")";
-		return "(Player:" + playerNum + ", Hand:" + hand.toString() + ", DevCards:" + devString + ")";
+		return "(Player:" + playerNum + ", Hand:" + hand.toString() + ", DevCards:" + devString + "NumHouses: " + houseList.size() + ")";
 	}
 
 	/**
@@ -114,6 +114,10 @@ public class Player{
 	
 	public int getBuilding() {
 		return building;
+	}
+	
+	public ArrayList<House> getHouseList(){
+		return houseList;
 	}
 	
 	public Color getColor() {
@@ -361,5 +365,48 @@ public class Player{
 		for(int i = 0; i < houseList.size(); i++) {
 			houseList.get(i).draw(g, this.getColor());
 		}
+	}
+	
+	public void pullResources(int roll) {
+		for(int i = 0; i < houseList.size(); i++) {
+			House house = houseList.get(i);
+			Vertex vertex = house.getVertex();
+			ArrayList<Tile> neighborTiles = vertex.getNeighbors();
+			for(int j = 0; j <neighborTiles.size(); i++) {
+				Tile  tile = neighborTiles.get(j);
+				if(tile.getNumber() == roll) {
+					this.pullResources(roll, tile.getTileType(), vertex.getHouseType());
+				}
+			}
+		}
+	}
+	
+	private void pullResources(int roll, int type, int houseType) {
+		if(type == 0) { // wood
+			this.giveWood(houseType);
+		}
+		else if(type == 1) { // brick
+			this.giveBrick(houseType);
+		}
+		else if(type == 2) { // wheat
+			this.giveWheat(houseType);
+		}
+		else if(type == 3) { // sheep
+			this.giveSheep(houseType);
+		}
+		else if(type == 4) { // ore
+			this.giveOre(houseType);
+		}
+		else if(type == 5) { // desert
+			// ha you get nothing
+		}	
+	}
+	
+	public void testAddSettlement(Vertex v) {
+		this.giveWood(1);
+		this.giveBrick(1);
+		this.giveWheat(1);
+		this.giveSheep(1);
+		this.buildSettlement(v);
 	}
 }

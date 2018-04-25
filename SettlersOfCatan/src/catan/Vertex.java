@@ -40,6 +40,15 @@ public class Vertex extends Location {
 	public int getHouseType() {
 		return houseType;
 	}
+	
+	public ArrayList<Tile> getNeighbors(){
+		return neighborTiles;
+	}
+	
+	public void resetNeighbors() {
+		neighborTiles = new ArrayList<Tile>();
+	}
+	
 	public void setHouseType(int houseType) {
 		this.houseType = houseType;
 	}
@@ -87,4 +96,23 @@ public class Vertex extends Location {
 		}
 	}
 	
+	public String neighborString() {
+		String str = "";
+		for (int i = 0; i < neighborTiles.size(); i++) {
+			str = str + neighborTiles.get(i).getNumber() + " ";
+		}
+		return str;
+	}
+	
+	public String toString() {
+		return "x: " + super.getX() + ", y: " + super.getY() + ", Neighbors: " + neighborString();
+	}
+	
 }
+
+
+
+
+
+
+
