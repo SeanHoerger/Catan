@@ -83,9 +83,6 @@ public class Vertex extends Location {
 	private class vertexHandler implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent Event) {
-			//Functionality
-			JFrame window = new JFrame();
-			JOptionPane.showMessageDialog(window, "Fuck You");
 			flag = true;
 		}
 	}

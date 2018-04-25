@@ -16,10 +16,10 @@ public class BoardData{
 	
 	// default (no argument) constructor
 	public BoardData() {
-		Player p1 = new Player();
-		Player p2 = new Player();
-		Player p3 = new Player();
-		Player p4 = new Player();
+		Player p1 = new Player(1);
+		Player p2 = new Player(2);
+		Player p3 = new Player(3);
+		Player p4 = new Player(4);
 		
 		players = new Player[] {p1, p2, p3, p4};
 		

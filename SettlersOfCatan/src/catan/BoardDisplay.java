@@ -48,14 +48,14 @@ public class BoardDisplay extends JComponent{
 	 * These players are used to keep track of turns and people
 	 * All 4 are generated even if only 2 players are in the game
 	 */
-	public static Player player1 = new Player(1);
-	public static Player player2 = new Player(2);
-	public static Player player3 = new Player(3);
-	public static Player player4 = new Player(4);
+
 	
 	private static final BoardData boardData = new BoardData();
 
-
+	public static Player player1 = boardData.getPlayers()[0];
+	public static Player player2 = boardData.getPlayers()[1];
+	public static Player player3 = boardData.getPlayers()[2];
+	public static Player player4 = boardData.getPlayers()[3];
 	/**
 	 * Main Method that controls the game
 	 * @param args
@@ -80,27 +80,28 @@ public class BoardDisplay extends JComponent{
 		player1.giveSheep(1);
 		player1.giveWood(1);
 		player1.giveOre(3);
-		player2.giveBrick(1);
-		player2.giveWheat(2);
-		player2.giveSheep(1);
-		player2.giveWood(1);
-		player2.giveOre(3);
-		player3.giveBrick(1);
-		player3.giveWheat(2);
-		player3.giveSheep(1);
-		player3.giveWood(1);
-		player3.giveOre(3);
-		player4.giveBrick(1);
-		player4.giveWheat(2);
-		player4.giveSheep(1);
-		player4.giveWood(1);
-		player4.giveOre(3);
 		updatePlayerPanel();
 		while(!gameOver) {
 			window.requestFocusInWindow();
 			checkPlayerInput();
 			if(getCurrentPlayer().getBuilding() != 0) {
-				//Add building functionality here
+				for(int i = 0; i<boardData.getVertexArray().getLength(); i++) {
+					drawVertecies();
+				}
+				while(getCurrentPlayer().getBuilding() != 0) {
+					for(int i = 0; i< boardData.getVertexArray().getLength(); i++) {
+						if(boardData.getVertexArray().getVertex(i).isClicked()) {
+							if(getCurrentPlayer().getBuilding() == 2) {
+								getCurrentPlayer().buildSettlement(boardData.getVertexArray().getVertex(i));;
+								getCurrentPlayer().setBuilding(0);
+								boardData.getVertexArray().getVertex(i).setHouseType(1);
+								buildMenu.doClick();
+								removeVertecies();
+							}
+						}
+					}
+				}
+				
 			}
 		}
 	}
@@ -145,12 +146,10 @@ public class BoardDisplay extends JComponent{
 			boardData.getPlayers()[i].drawAll(g);
 		}
 		
-		for(int i = 0; i<boardData.getVertexArray().getLength(); i++) {
-			if(boardData.getVertexArray().getVertex(i).isVisible()) {
-				window.add(boardData.getVertexArray().getVertex(i).getVertexButton());
-				boardData.getVertexArray().getVertex(i).getVertexButton().repaint();
-			}
+		for(int i = 0; i < numPlayers; i++) {
+			boardData.getPlayers()[i].drawAll(g);
 		}
+
 		
 		// road test
 		/*Vertex v1 = new Vertex(XSTART, YSTART, 0, 0);
@@ -175,6 +174,24 @@ public class BoardDisplay extends JComponent{
 		
 		// test vertexes
 		//boardData.getVertexArray().test(g);
+	}
+	
+	public static void drawVertecies() {
+		for(int i = 0; i<boardData.getVertexArray().getLength(); i++) {
+			if(boardData.getVertexArray().getVertex(i).isVisible()) {
+				window.add(boardData.getVertexArray().getVertex(i).getVertexButton());
+				boardData.getVertexArray().getVertex(i).getVertexButton().repaint();
+			}
+		}
+	}
+	
+	public static void removeVertecies() {
+		for(int i = 0; i<boardData.getVertexArray().getLength(); i++) {
+			if(boardData.getVertexArray().getVertex(i).isVisible()) {
+				window.remove(boardData.getVertexArray().getVertex(i).getVertexButton());
+				boardData.getVertexArray().getVertex(i).getVertexButton().repaint();
+			}
+		}
 	}
 	
 	/**
